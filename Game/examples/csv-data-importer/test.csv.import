@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cbjku7t5yhvld"
+
+[deps]
+
+files=["res://examples/csv-data-importer/test.bbb.translation", "res://examples/csv-data-importer/test.ccc.translation"]
+
+source_file="res://examples/csv-data-importer/test.csv"
+dest_files=["res://examples/csv-data-importer/test.bbb.translation", "res://examples/csv-data-importer/test.ccc.translation"]
+
+[params]
+
+compress=true
+delimiter=0
