@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://my_tile_map.gd" id="2_c3pl7"]
 [ext_resource type="Texture2D" uid="uid://c0n6gq4s14nsr" path="res://resources/tiles/tile_outline.png" id="4_2v1ey"]
 [ext_resource type="Script" path="res://global/my_camera.gd" id="5_qd8wv"]
-[ext_resource type="PackedScene" uid="uid://d1egffmnvlu26" path="res://entities/units/player/player.tscn" id="6_vwtl5"]
+[ext_resource type="PackedScene" uid="uid://bpkrnbch8qw7g" path="res://entities/units/player/player.tscn" id="6_vwtl5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fnsd"]
 texture = ExtResource("1_3b4bx")
@@ -53,3 +53,5 @@ axis_stretch_horizontal = 2
 script = ExtResource("5_qd8wv")
 
 [node name="Player" parent="." instance=ExtResource("6_vwtl5")]
+position = Vector2(373, 242)
+scale = Vector2(0.5, 0.5)
