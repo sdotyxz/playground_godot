@@ -3,10 +3,12 @@ extends Entity
 
 var player_ref_ : Node2D
 var current_movement_ : Vector2
+var sprites_: = []
 
 var current_movement_behavior_:MovementBehavior
 
 @onready var movement_behavior_: = $MovementBehavior
+@export var speed : int
 
 func _ready()->void :
 	current_movement_behavior_ = movement_behavior_
@@ -24,8 +26,7 @@ func _physics_process(delta):
 	current_movement_ = get_movement()
 	update_animation(current_movement_)
 	
-	velocity.x = current_movement_.normalized().x * 100
-	velocity.y = current_movement_.normalized().y * 100
+	velocity = current_movement_.normalized() * speed
 	move_and_slide()
 
 func update_animation(movement:Vector2)->void :
