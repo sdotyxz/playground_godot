@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpkrnbch8qw7g"]
+[gd_scene load_steps=13 format=3 uid="uid://bpkrnbch8qw7g"]
 
 [ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_54xeg"]
 [ext_resource type="Script" path="res://entities/units/player/player.gd" id="1_tai7c"]
 [ext_resource type="Texture2D" uid="uid://dya8gdaxsc2io" path="res://entities/units/player/body_2.png" id="2_e8q38"]
+[ext_resource type="Resource" uid="uid://cysfbv8hldvvv" path="res://weapons/ranged/pistol/pistol_data.tres" id="3_30g2a"]
 [ext_resource type="Texture2D" uid="uid://bfwb2w404m2je" path="res://entities/units/player/leg.png" id="4_pyyo7"]
 [ext_resource type="Script" path="res://entities/units/movement_behaviors/player_movement_behavior.gd" id="4_ytwg7"]
-[ext_resource type="PackedScene" uid="uid://o5p6n7s8mmc6" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
+[ext_resource type="PackedScene" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
 
 [sub_resource type="Animation" id="Animation_ibgva"]
 resource_name = "RESET"
@@ -497,6 +498,7 @@ _data = {
 collision_layer = 2
 collision_mask = 128
 script = ExtResource("1_tai7c")
+default_weapon_data = ExtResource("3_30g2a")
 
 [node name="Shadow" type="Sprite2D" parent="Animation" index="0"]
 modulate = Color(0, 0, 0, 0.45098)

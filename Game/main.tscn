@@ -51,6 +51,7 @@ patch_margin_bottom = 166
 axis_stretch_horizontal = 2
 
 [node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 script = ExtResource("5_qd8wv")
 
 [node name="Player" parent="." instance=ExtResource("6_vwtl5")]
