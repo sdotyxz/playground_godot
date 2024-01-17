@@ -1,6 +1,7 @@
 extends Node
 
 @onready var tile_map_ = $TileMap
+@onready var tile_map_limits = $TileMapLimits
 @onready var camera_ = $Camera
 @onready var player_ : Player = $Player
 
@@ -12,6 +13,7 @@ const TILE_SIZE = 64
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	tile_map_.init(MAP_WIDTH, MAP_HEIGHT)
+	tile_map_limits.init()
 	
 	init_camera()
 	

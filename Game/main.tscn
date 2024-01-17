@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjwv15iryj3eq"]
+[gd_scene load_steps=10 format=3 uid="uid://cjwv15iryj3eq"]
 
 [ext_resource type="Texture2D" uid="uid://d1me85o8a1mk3" path="res://resources/tiles/tileset_1.png" id="1_3b4bx"]
 [ext_resource type="Script" path="res://main.gd" id="1_ug8yj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c0n6gq4s14nsr" path="res://resources/tiles/tile_outline.png" id="4_2v1ey"]
 [ext_resource type="Script" path="res://global/my_camera.gd" id="5_qd8wv"]
 [ext_resource type="PackedScene" uid="uid://bpkrnbch8qw7g" path="res://entities/units/player/player.tscn" id="6_vwtl5"]
+[ext_resource type="Script" path="res://my_tile_map_limits.gd" id="7_rhcda"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fnsd"]
 texture = ExtResource("1_3b4bx")
@@ -55,3 +56,9 @@ script = ExtResource("5_qd8wv")
 [node name="Player" parent="." instance=ExtResource("6_vwtl5")]
 position = Vector2(373, 242)
 scale = Vector2(0.5, 0.5)
+
+[node name="TileMapLimits" type="StaticBody2D" parent="."]
+position = Vector2(-64, -64)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("7_rhcda")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpkrnbch8qw7g"]
+[gd_scene load_steps=12 format=3 uid="uid://bpkrnbch8qw7g"]
 
 [ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_54xeg"]
 [ext_resource type="Script" path="res://entities/units/player/player.gd" id="1_tai7c"]
 [ext_resource type="Texture2D" uid="uid://dya8gdaxsc2io" path="res://entities/units/player/body_2.png" id="2_e8q38"]
 [ext_resource type="Texture2D" uid="uid://bfwb2w404m2je" path="res://entities/units/player/leg.png" id="4_pyyo7"]
 [ext_resource type="Script" path="res://entities/units/movement_behaviors/player_movement_behavior.gd" id="4_ytwg7"]
+[ext_resource type="PackedScene" uid="uid://o5p6n7s8mmc6" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
 
 [sub_resource type="Animation" id="Animation_ibgva"]
 resource_name = "RESET"
@@ -287,6 +288,54 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_57rsx"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animation:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animation:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0, -19, -0.25, 0, 0.25, 0, -24, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animation:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.15, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Animation:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.85, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+
 [sub_resource type="Animation" id="Animation_8yqi7"]
 resource_name = "move"
 length = 0.6
@@ -436,54 +485,6 @@ tracks/11/keys = {
 "values": [0.0, 6.28319]
 }
 
-[sub_resource type="Animation" id="Animation_57rsx"]
-resource_name = "Idle"
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Animation:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Animation:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0, -19, -0.25, 0, 0.25, 0, -24, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Animation:scale:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.15, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Animation:scale:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.85, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qq2h3"]
 _data = {
 "RESET": SubResource("Animation_ibgva"),
@@ -493,6 +494,8 @@ _data = {
 }
 
 [node name="Player" instance=ExtResource("1_54xeg")]
+collision_layer = 2
+collision_mask = 128
 script = ExtResource("1_tai7c")
 
 [node name="Shadow" type="Sprite2D" parent="Animation" index="0"]
@@ -501,29 +504,35 @@ position = Vector2(0, 67)
 scale = Vector2(1, 0.3)
 texture = ExtResource("2_e8q38")
 
-[node name="Leg_R_Back" type="Sprite2D" parent="Animation" index="1"]
+[node name="Fire2" parent="Animation" index="1" instance=ExtResource("5_1iwb5")]
+position = Vector2(59, 50)
+
+[node name="Fire" parent="Animation" index="2" instance=ExtResource("5_1iwb5")]
+position = Vector2(-49, 47)
+
+[node name="Leg_R_Back" type="Sprite2D" parent="Animation" index="3"]
 position = Vector2(57, 40)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Leg_L_Back" type="Sprite2D" parent="Animation" index="2"]
-visible = false
+[node name="Leg_L_Back" type="Sprite2D" parent="Animation" index="4"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(-56.6667, 37.5)
 rotation = 6.28319
 scale = Vector2(1, -1)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Sprite2D" parent="Animation" index="3"]
+[node name="Sprite2D" parent="Animation" index="5"]
 texture = ExtResource("2_e8q38")
 
-[node name="Leg_R_Front" type="Sprite2D" parent="Animation" index="4"]
-visible = false
+[node name="Leg_R_Front" type="Sprite2D" parent="Animation" index="6"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(39.1667, 55)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Leg_L_Front" type="Sprite2D" parent="Animation" index="5"]
+[node name="Leg_L_Front" type="Sprite2D" parent="Animation" index="7"]
 position = Vector2(-36, 59)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
@@ -538,3 +547,7 @@ autoplay = "idle"
 script = ExtResource("4_ytwg7")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="." index="5"]
+
+[node name="Weapons" type="Node2D" parent="." index="6"]
+
+[node name="Attach" type="Node2D" parent="Weapons" index="0"]

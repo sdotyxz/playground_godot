@@ -12,4 +12,14 @@ config_version=5
 
 config/name="Playground"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://entities/units/player/body_1.png"
+
+[autoload]
+
+GameConst="*res://singletons/game_const.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+mouse_cursor/custom_image="res://ui/custom_cursor.png"
