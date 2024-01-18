@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmx53ti0ip2m1"]
+[gd_scene load_steps=7 format=3 uid="uid://cmx53ti0ip2m1"]
 
 [ext_resource type="PackedScene" uid="uid://c41k6dqru7g1o" path="res://projectiles/projectile.tscn" id="1_qixw1"]
 [ext_resource type="Script" path="res://projectiles/player_projectile.gd" id="2_sjgiu"]
+[ext_resource type="Texture2D" uid="uid://c8ttdok3gowtu" path="res://weapons/ranged/pistol/pistol_projectile.png" id="3_kbt6m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_su2db"]
 radius = 61.16
@@ -30,8 +31,12 @@ _data = {
 }
 
 [node name="BulletProjectile" instance=ExtResource("1_qixw1")]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("2_sjgiu")
 enable_physics_process = false
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_kbt6m")
 
 [node name="Hitbox" parent="." index="1"]
 collision_layer = 8
