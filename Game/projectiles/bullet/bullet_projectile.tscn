@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmx53ti0ip2m1"]
+
+[ext_resource type="PackedScene" uid="uid://c41k6dqru7g1o" path="res://projectiles/projectile.tscn" id="1_qixw1"]
+[ext_resource type="Script" path="res://projectiles/player_projectile.gd" id="2_sjgiu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_su2db"]
+radius = 61.16
+
+[sub_resource type="Animation" id="Animation_ta8e5"]
+resource_name = "fire"
+step = 0.02
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_physics_process"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dbdfb"]
+_data = {
+"fire": SubResource("Animation_ta8e5")
+}
+
+[node name="BulletProjectile" instance=ExtResource("1_qixw1")]
+script = ExtResource("2_sjgiu")
+enable_physics_process = false
+
+[node name="Hitbox" parent="." index="1"]
+collision_layer = 8
+
+[node name="Collision" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_su2db")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_dbdfb")
+}
+autoplay = "fire"
+
+[connection signal="on_hit_something" from="Hitbox" to="." method="_on_hitbox_on_hit_something"]
+
+[editable path="Hitbox"]

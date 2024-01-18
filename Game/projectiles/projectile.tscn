@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c41k6dqru7g1o"]
+
+[ext_resource type="Texture2D" uid="uid://2mexvjrswf4d" path="res://icon.svg" id="1_nyqs3"]
+[ext_resource type="Script" path="res://projectiles/projectile.gd" id="1_v30sf"]
+[ext_resource type="PackedScene" uid="uid://cgfrpw1bdmscf" path="res://overlap/hitbox.tscn" id="3_5mj71"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b6f07"]
+radius = 59.44
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_v30sf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nyqs3")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_5mj71")]
+
+[node name="Collision" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_b6f07")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DestroyTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]
+
+[editable path="Hitbox"]

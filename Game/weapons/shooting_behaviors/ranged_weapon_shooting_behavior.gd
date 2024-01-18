@@ -8,4 +8,5 @@ func shoot(_distance:float)->void :
 	pass
 
 func shoot_projectile(rotation:float = parent_.rotation, knockback:Vector2 = Vector2.ZERO)->void :
+	WeaponService.spawn_projectile(rotation, parent_.global_position)
 	pass

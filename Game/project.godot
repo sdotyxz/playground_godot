@@ -17,6 +17,8 @@ config/icon="res://entities/units/player/body_1.png"
 [autoload]
 
 GameConst="*res://singletons/game_const.gd"
+WeaponService="*res://singletons/weapon_service.gd"
+Utils="*res://singletons/utils.gd"
 
 [display]
 

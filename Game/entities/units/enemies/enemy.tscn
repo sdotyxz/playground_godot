@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dao01kag4p3if"]
+
+[ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_644dt"]
+[ext_resource type="Script" path="res://entities/units/enemies/enemy.gd" id="2_u1j3i"]
+[ext_resource type="PackedScene" uid="uid://cgfrpw1bdmscf" path="res://overlap/hitbox.tscn" id="2_u431i"]
+[ext_resource type="Script" path="res://entities/units/movement_behaviors/follow_player_movement_behavior.gd" id="4_s3skm"]
+
+[node name="Enemy" instance=ExtResource("1_644dt")]
+collision_layer = 4
+collision_mask = 132
+script = ExtResource("2_u1j3i")
+speed = 150
+
+[node name="Hurtbox" parent="." index="3"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Hitbox" parent="." index="4" instance=ExtResource("2_u431i")]
+
+[node name="MovementBehavior" type="Node2D" parent="." index="5"]
+script = ExtResource("4_s3skm")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

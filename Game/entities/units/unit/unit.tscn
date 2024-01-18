@@ -242,3 +242,5 @@ libraries = {
 }
 
 [node name="Hurtbox" parent="." index="3" instance=ExtResource("2_2vqw4")]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

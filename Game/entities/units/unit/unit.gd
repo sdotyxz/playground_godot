@@ -37,3 +37,12 @@ func update_animation(movement:Vector2)->void :
 
 func get_movement()->Vector2:
 	return current_movement_behavior_.get_movement()
+
+func _on_hurtbox_area_entered(hitBox:Area2D):
+	print("_on_hurtbox_area_entered")
+	on_hurt()
+	pass # Replace with function body.
+	
+func on_hurt()->void :
+	die()
+	pass

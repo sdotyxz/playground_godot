@@ -3,7 +3,8 @@ extends Node
 @onready var tile_map_ = $TileMap
 @onready var tile_map_limits = $TileMapLimits
 @onready var camera_ = $Camera
-@onready var player_ : Player = $Player
+@onready var entity_spawner_ = $EntitySpawner as EntitySpawner
+@onready var entities_container_ = $Enitties
 
 const EDGE_SIZE = 96
 const MAP_WIDTH = 30
@@ -17,7 +18,10 @@ func _ready():
 	
 	init_camera()
 	
-	player_.get_remote_transform().remote_path = camera_.get_path()
+	var max_pos = Vector2(MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE)
+	var min_pos = Vector2.ZERO
+	
+	entity_spawner_.init(entities_container_, min_pos, max_pos)
 
 	pass # Replace with function body.
 
@@ -35,8 +39,12 @@ func init_camera()->void:
 	camera_.limit_left = min_pos.x - EDGE_SIZE
 	camera_.limit_bottom = max_pos.y + EDGE_SIZE
 	camera_.limit_top = min_pos.y - EDGE_SIZE * 2
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_entity_spawner_player_spawned(player:Player):
+	player.get_remote_transform().remote_path = camera_.get_path()
+	pass # Replace with function body.
