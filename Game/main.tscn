@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjwv15iryj3eq"]
+[gd_scene load_steps=13 format=3 uid="uid://cjwv15iryj3eq"]
 
 [ext_resource type="Texture2D" uid="uid://d1me85o8a1mk3" path="res://resources/tiles/tileset_1.png" id="1_3b4bx"]
 [ext_resource type="Script" path="res://main.gd" id="1_ug8yj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://global/entity_spawner.gd" id="7_byf1u"]
 [ext_resource type="Script" path="res://my_tile_map_limits.gd" id="7_rhcda"]
 [ext_resource type="PackedScene" uid="uid://dao01kag4p3if" path="res://entities/units/enemies/enemy.tscn" id="8_8u1bm"]
+[ext_resource type="PackedScene" uid="uid://dgtn5rvxrewky" path="res://wave_manager.tscn" id="10_6c8k2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fnsd"]
 texture = ExtResource("1_3b4bx")
@@ -70,4 +71,8 @@ enemy_secene = ExtResource("8_8u1bm")
 [node name="Enitties" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="WaveManager" parent="." instance=ExtResource("10_6c8k2")]
+
+[connection signal="enemy_spawned" from="EntitySpawner" to="." method="_on_entity_spawner_enemy_spawned"]
 [connection signal="player_spawned" from="EntitySpawner" to="." method="_on_entity_spawner_player_spawned"]
+[connection signal="group_spawn_timing_reached" from="WaveManager" to="." method="_on_wave_manager_group_spawn_timing_reached"]

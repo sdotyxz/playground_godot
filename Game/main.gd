@@ -5,6 +5,7 @@ extends Node
 @onready var camera_ = $Camera
 @onready var entity_spawner_ = $EntitySpawner as EntitySpawner
 @onready var entities_container_ = $Enitties
+@onready var wave_manager_ = $WaveManager as WaveManager
 
 const EDGE_SIZE = 96
 const MAP_WIDTH = 30
@@ -22,6 +23,8 @@ func _ready():
 	var min_pos = Vector2.ZERO
 	
 	entity_spawner_.init(entities_container_, min_pos, max_pos)
+	
+	wave_manager_.init(1)
 
 	pass # Replace with function body.
 
@@ -48,3 +51,15 @@ func _process(delta):
 func _on_entity_spawner_player_spawned(player:Player):
 	player.get_remote_transform().remote_path = camera_.get_path()
 	pass # Replace with function body.
+
+
+func _on_wave_manager_group_spawn_timing_reached(group_id):
+	entity_spawner_.spawn_enemy_group(group_id)
+	pass # Replace with function body.
+
+func _on_entity_spawner_enemy_spawned(enemy:Enemy):
+	enemy.connect("died", _on_enemy_died)
+
+func _on_enemy_died(enemy:Enemy):
+	print("_on_enemy_died Spawn Loot")
+	pass

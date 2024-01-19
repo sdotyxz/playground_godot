@@ -1,0 +1,6 @@
+﻿id,difficulty,duration,max_enemy
+wave_1_1,1,20,20
+wave_1_2,1,30,30
+wave_1_3,1,40,40
+wave_1_4,1,50,50
+wave_1_5,1,60,100
