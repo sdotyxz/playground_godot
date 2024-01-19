@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://1tp5h1lo2lra"]
+
+[ext_resource type="PackedScene" uid="uid://be6orh3caqohq" path="res://weapons/ranged/pistol/pistol.tscn" id="1_smpdk"]
+[ext_resource type="Script" path="res://global/weapon_data.gd" id="2_tmaep"]
+
+[resource]
+script = ExtResource("2_tmaep")
+weapon_id = ""
+scene = ExtResource("1_smpdk")
+my_id = ""

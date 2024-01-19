@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c773u6xg0a1aw"]
+
+[ext_resource type="PackedScene" uid="uid://7m852q2yapo" path="res://weapons/weapon.tscn" id="1_btmhs"]
+[ext_resource type="Texture2D" uid="uid://b3ba5qtj83kh" path="res://weapons/ranged/pistol/pistol.png" id="2_7tddi"]
+
+[node name="Pistol" instance=ExtResource("1_btmhs")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(200, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7tddi")
+
+[node name="Range" parent="." index="1"]
+collision_layer = 0
+collision_mask = 5
+monitorable = false
