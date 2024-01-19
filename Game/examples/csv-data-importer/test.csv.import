@@ -1,17 +1,18 @@
 [remap]
 
-importer="csv_translation"
-type="Translation"
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
 uid="uid://cbjku7t5yhvld"
+path="res://.godot/imported/test.csv-f210392e65355a81e46023b6be8bd215.res"
 
 [deps]
 
-files=["res://examples/csv-data-importer/test.bbb.translation", "res://examples/csv-data-importer/test.ccc.translation"]
-
 source_file="res://examples/csv-data-importer/test.csv"
-dest_files=["res://examples/csv-data-importer/test.bbb.translation", "res://examples/csv-data-importer/test.ccc.translation"]
+dest_files=["res://.godot/imported/test.csv-f210392e65355a81e46023b6be8bd215.res"]
 
 [params]
 
-compress=true
 delimiter=0
+headers=true
+detect_numbers=true
+force_float=false

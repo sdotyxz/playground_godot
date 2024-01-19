@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cysfbv8hldvvv" path="res://weapons/ranged/pistol/pistol_data.tres" id="3_30g2a"]
 [ext_resource type="Texture2D" uid="uid://bfwb2w404m2je" path="res://entities/units/player/leg.png" id="4_pyyo7"]
 [ext_resource type="Script" path="res://entities/units/movement_behaviors/player_movement_behavior.gd" id="4_ytwg7"]
-[ext_resource type="PackedScene" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
+[ext_resource type="PackedScene" uid="uid://o5p6n7s8mmc6" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
 
 [sub_resource type="Animation" id="Animation_ibgva"]
 resource_name = "RESET"

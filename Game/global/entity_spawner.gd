@@ -2,6 +2,7 @@ class_name EntitySpawner
 extends Node
 
 signal player_spawned(player)
+signal enemy_spawned(enemy)
 
 @export var player_scene : PackedScene
 @export var enemy_secene : PackedScene
@@ -21,8 +22,6 @@ func init(
 	zone_max_pos_ = zone_max_pos
 	player_ = spawn_entity(player_scene, Vector2(zone_max_pos.x / 2, zone_max_pos.y / 2), true)
 	emit_signal("player_spawned", player_)
-	
-	spawn_entity(enemy_secene, Vector2(randf_range(0, zone_max_pos.x), randf_range(0, zone_max_pos.y)))
 
 func spawn_entity(scene:PackedScene, pos:Vector2, is_player:bool = false, data:Resource = null)->CharacterBody2D:
 	var entity = scene.instantiate()
@@ -40,3 +39,18 @@ func spawn_entity(scene:PackedScene, pos:Vector2, is_player:bool = false, data:R
 	entity.init(zone_min_pos_, zone_max_pos_, player_, self)
 
 	return entity
+
+func get_rand_pos() -> Vector2 : 
+	return Vector2(randf_range(0, zone_max_pos_.x), randf_range(0, zone_max_pos_.y))
+	pass
+
+func spawn_enemy_group(group_id : String):
+	var units = ConfigService.get_unit_configs(group_id)
+	for unit in units:
+		var spawn_count = randi_range(unit.min, unit.max)
+		for i in spawn_count:
+			var rand_pos = get_rand_pos()
+			var unit_scene = load(unit.unit_scene)
+			var entity = spawn_entity(unit_scene, rand_pos)
+			emit_signal("enemy_spawned", entity)
+	pass
