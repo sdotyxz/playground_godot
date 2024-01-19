@@ -18,4 +18,4 @@ monitorable = false
 [node name="ShootingBehavior" parent="." index="2"]
 projectile_spread = 0.5
 projectile_num = 4
-projectile_v = 1.5
+projectile_v = 1.1
