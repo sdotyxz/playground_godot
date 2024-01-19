@@ -20,3 +20,4 @@ projectile_spread = 0.3
 projectile_num = 1
 weaponType = 3
 projectile_v = 1.5
+projectile_lifetime = 1.0
