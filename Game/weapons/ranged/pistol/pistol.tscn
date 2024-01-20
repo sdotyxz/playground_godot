@@ -21,3 +21,4 @@ projectile_num = 1
 weaponType = 1
 projectile_v = 0.8
 projectile_lifetime = 1.0
+projectile_size = 0.6

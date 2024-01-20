@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3ba5qtj83kh" path="res://weapons/ranged/pistol/pistol.png" id="2_7tddi"]
 
 [node name="Pistol" instance=ExtResource("1_btmhs")]
+overloadState = 2
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(200, 0)
@@ -21,3 +22,4 @@ projectile_num = 4
 weaponType = 2
 projectile_v = 1.1
 projectile_lifetime = 1.0
+projectile_size = 0.6
