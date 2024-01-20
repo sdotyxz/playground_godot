@@ -11,6 +11,7 @@ scale = Vector2(0.25, 0.25)
 collision_layer = 4
 collision_mask = 132
 script = ExtResource("2_u1j3i")
+material_scene = null
 speed = 150
 
 [node name="Shadow" type="Sprite2D" parent="Animation" index="0"]

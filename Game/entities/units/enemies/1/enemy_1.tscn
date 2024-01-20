@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4btsdjpu5ow7"]
+
+[ext_resource type="PackedScene" uid="uid://dao01kag4p3if" path="res://entities/units/enemies/enemy.tscn" id="1_5bwhu"]
+[ext_resource type="PackedScene" uid="uid://ddcai827qq5lf" path="res://items/materials/gold.tscn" id="2_7mutn"]
+
+[node name="Enemy" instance=ExtResource("1_5bwhu")]
+material_scene = ExtResource("2_7mutn")
+
+[node name="Shadow" parent="Animation" index="0"]
+position = Vector2(12, 74)
+scale = Vector2(0.65625, 0.234375)
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

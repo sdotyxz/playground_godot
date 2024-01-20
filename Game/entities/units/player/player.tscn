@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bpkrnbch8qw7g"]
+[gd_scene load_steps=17 format=3 uid="uid://bpkrnbch8qw7g"]
 
 [ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_54xeg"]
 [ext_resource type="Script" path="res://entities/units/player/player.gd" id="1_tai7c"]
@@ -6,7 +6,9 @@
 [ext_resource type="Resource" uid="uid://cysfbv8hldvvv" path="res://weapons/ranged/pistol/pistol_data.tres" id="3_30g2a"]
 [ext_resource type="Texture2D" uid="uid://bfwb2w404m2je" path="res://entities/units/player/leg.png" id="4_pyyo7"]
 [ext_resource type="Script" path="res://entities/units/movement_behaviors/player_movement_behavior.gd" id="4_ytwg7"]
-[ext_resource type="PackedScene" uid="uid://o5p6n7s8mmc6" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
+[ext_resource type="PackedScene" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
+[ext_resource type="Script" path="res://entities/units/player/player_stat.gd" id="8_jq88q"]
+[ext_resource type="Texture2D" uid="uid://2mexvjrswf4d" path="res://icon.svg" id="9_s50hq"]
 
 [sub_resource type="Animation" id="Animation_ibgva"]
 resource_name = "RESET"
@@ -494,6 +496,12 @@ _data = {
 "move": SubResource("Animation_8yqi7")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aujru"]
+radius = 323.26
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g5yyj"]
+radius = 52.2
+
 [node name="Player" instance=ExtResource("1_54xeg")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
@@ -507,18 +515,26 @@ position = Vector2(0, 67)
 scale = Vector2(1, 0.3)
 texture = ExtResource("2_e8q38")
 
-[node name="Fire2" parent="Animation" index="1" instance=ExtResource("5_1iwb5")]
+[node name="FoodPack" type="Node2D" parent="Animation" index="1"]
+position = Vector2(0, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="Animation/FoodPack" index="0"]
+position = Vector2(-122, 28)
+scale = Vector2(0.421875, 0.421875)
+texture = ExtResource("9_s50hq")
+
+[node name="Fire2" parent="Animation" index="2" instance=ExtResource("5_1iwb5")]
 position = Vector2(59, 50)
 
-[node name="Fire" parent="Animation" index="2" instance=ExtResource("5_1iwb5")]
+[node name="Fire" parent="Animation" index="3" instance=ExtResource("5_1iwb5")]
 position = Vector2(-49, 47)
 
-[node name="Leg_R_Back" type="Sprite2D" parent="Animation" index="3"]
+[node name="Leg_R_Back" type="Sprite2D" parent="Animation" index="4"]
 position = Vector2(57, 40)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Leg_L_Back" type="Sprite2D" parent="Animation" index="4"]
+[node name="Leg_L_Back" type="Sprite2D" parent="Animation" index="5"]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-56.6667, 37.5)
 rotation = 6.28319
@@ -526,16 +542,16 @@ scale = Vector2(1, -1)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Sprite2D" parent="Animation" index="5"]
+[node name="Sprite2D" parent="Animation" index="6"]
 texture = ExtResource("2_e8q38")
 
-[node name="Leg_R_Front" type="Sprite2D" parent="Animation" index="6"]
+[node name="Leg_R_Front" type="Sprite2D" parent="Animation" index="7"]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(39.1667, 55)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Leg_L_Front" type="Sprite2D" parent="Animation" index="7"]
+[node name="Leg_L_Front" type="Sprite2D" parent="Animation" index="8"]
 position = Vector2(-36, 59)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
@@ -554,3 +570,24 @@ script = ExtResource("4_ytwg7")
 [node name="Weapons" type="Node2D" parent="." index="6"]
 
 [node name="Attach" type="Node2D" parent="Weapons" index="0"]
+
+[node name="ItemAttractArea" type="Area2D" parent="." index="7"]
+collision_layer = 0
+collision_mask = 96
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemAttractArea" index="0"]
+shape = SubResource("CircleShape2D_aujru")
+
+[node name="ItemPickupArea" type="Area2D" parent="." index="8"]
+collision_layer = 0
+collision_mask = 96
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupArea" index="0"]
+shape = SubResource("CircleShape2D_g5yyj")
+
+[node name="PlayerStat" type="Node" parent="." index="9"]
+script = ExtResource("8_jq88q")
+
+[connection signal="area_entered" from="ItemAttractArea" to="." method="_on_item_attract_area_area_entered"]
+[connection signal="area_exited" from="ItemAttractArea" to="." method="_on_item_attract_area_area_exited"]
+[connection signal="area_entered" from="ItemPickupArea" to="." method="_on_item_pickup_area_area_entered"]

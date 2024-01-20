@@ -5,12 +5,15 @@ extends Node
 @onready var camera_ = $Camera
 @onready var entity_spawner_ = $EntitySpawner as EntitySpawner
 @onready var entities_container_ = $Enitties
+@onready var items_container_ = $Items
 @onready var wave_manager_ = $WaveManager as WaveManager
 
 const EDGE_SIZE = 96
 const MAP_WIDTH = 30
 const MAP_HEIGHT = 30
 const TILE_SIZE = 64
+
+var player_ : Player = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,6 +53,8 @@ func _process(delta):
 
 func _on_entity_spawner_player_spawned(player:Player):
 	player.get_remote_transform().remote_path = camera_.get_path()
+	player_ = player
+	player_.connect("player_gold_changed", on_player_gold_changed)
 	pass # Replace with function body.
 
 
@@ -62,4 +67,16 @@ func _on_entity_spawner_enemy_spawned(enemy:Enemy):
 
 func _on_enemy_died(enemy:Enemy):
 	print("_on_enemy_died Spawn Loot")
-	pass
+	spawn_gold(enemy.material_scene, enemy.global_position)
+
+func spawn_gold(gold_scene : PackedScene, pos : Vector2):
+	var gold = gold_scene.instantiate() as Gold
+	gold.global_position = pos
+	gold.connect("picked_up", on_gold_picked_up)
+	items_container_.call_deferred("add_child", gold)
+
+func on_gold_picked_up(gold:Gold):
+	player_.add_gold(gold.value)
+
+func on_player_gold_changed(new_value):
+	print("on_player_gold_changed : ", new_value)
