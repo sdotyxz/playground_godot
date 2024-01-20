@@ -14,3 +14,11 @@ texture = ExtResource("2_l5v0v")
 collision_layer = 0
 collision_mask = 5
 monitorable = false
+
+[node name="ShootingBehavior" parent="." index="2"]
+projectile_spread = 0.0
+projectile_num = 1
+weaponType = 1
+projectile_v = 0.8
+projectile_lifetime = 1.0
+projectile_size = 0.6
