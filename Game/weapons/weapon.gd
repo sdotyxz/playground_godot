@@ -1,6 +1,8 @@
 class_name Weapon
 extends Node2D
 
+signal ammo_changed(ammo:int)
+
 @onready var shooting_behavior_ : WeaponShootingBehavior = $ShootingBehavior
 
 @export var Ammomax = 1#最大子弹数量
@@ -12,7 +14,6 @@ extends Node2D
 var AmmoClear = 0
 
 @export var overloadState = 1#能力类型
-
 
 func _ready():
 	shooting_behavior_.init(self)
@@ -30,15 +31,17 @@ func _input(event : InputEvent):
 				print("noAmmo")
 			elif Ammo > 0 :
 				shoot()
-				Ammo -= everyshootreduceAmmo
 
 func shoot():
 	print("shoot")
 	shooting_behavior_.shoot(150)
+	Ammo -= everyshootreduceAmmo
+	emit_signal("ammo_changed", Ammo)
 	pass
 	
 func reload():
 	Ammo = bagAmmo #把包裏面的子彈裝入彈夾
+	emit_signal("ammo_changed", Ammo)	
 	
 	if overloadState == 1:#给单发子弹角色，效果是子弹变大
 		var overload1 = 9
@@ -70,9 +73,6 @@ func reload():
 		pass
 	
 	#bagAmmo = AmmoClear#清空彈夾不成功，使用這個語句后，換彈沒有子彈
-
-
-
 
 func pickup():
 	print("pickup")

@@ -20,8 +20,10 @@ var food_pack_config : Array = [10, 20, 30, 40]
 var VISIBLE_COLOR : Color = Color(1, 1, 1, 1)
 var INVISIBLE_COLOR : Color = Color(1, 1, 1, 0)
 
+#var cur_weapon : Weapon = null
+
 func _ready()->void :
-	add_weapon(default_weapon_data)
+	#cur_weapon = add_weapon(default_weapon_data)
 	super._ready()
 
 func get_remote_transform()->RemoteTransform2D:
@@ -53,12 +55,14 @@ func update_animation(movement:Vector2)->void:
 	elif animation_player_.current_animation == "move" and movement == Vector2.ZERO:
 		animation_player_.play("idle")
 
-func add_weapon(weapon:WeaponData)->void:
+func equip_weapon() -> Weapon :
+	return add_weapon(default_weapon_data)
+
+func add_weapon(weapon:WeaponData)-> Weapon:
 	var instance = weapon.scene.instantiate()
 	weapons_container_.add_child(instance)
 	instance.global_position = position
-	pass
-
+	return instance
 
 func _on_item_attract_area_area_entered(area):
 	var is_item = area is Item

@@ -8,6 +8,10 @@ extends Node
 @onready var items_container_ = $Items
 @onready var wave_manager_ = $WaveManager as WaveManager
 
+#ui
+@onready var wave_label = $UI/MarginContainer/VBoxContainer/HBoxContainer/WaveLabel as Label
+@onready var ammo_label = $UI/MarginContainer/LifeContainer/HBoxContainer/AmmoLabel as Label
+
 const EDGE_SIZE = 96
 const MAP_WIDTH = 30
 const MAP_HEIGHT = 30
@@ -46,17 +50,14 @@ func init_camera()->void:
 	camera_.limit_bottom = max_pos.y + EDGE_SIZE
 	camera_.limit_top = min_pos.y - EDGE_SIZE * 2
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_entity_spawner_player_spawned(player:Player):
 	player.get_remote_transform().remote_path = camera_.get_path()
 	player_ = player
 	player_.connect("player_gold_changed", on_player_gold_changed)
+	var weapon = player.equip_weapon()
+	weapon.connect("ammo_changed", on_player_ammo_changed)
+	weapon.reload()
 	pass # Replace with function body.
-
 
 func _on_wave_manager_group_spawn_timing_reached(group_id):
 	entity_spawner_.spawn_enemy_group(group_id)
@@ -80,3 +81,11 @@ func on_gold_picked_up(gold:Gold):
 
 func on_player_gold_changed(new_value):
 	print("on_player_gold_changed : ", new_value)
+
+func _on_wave_manager_wave_started(wave_index):
+	var index : int = wave_index + 1
+	wave_label.text = "%d" % index
+	pass # Replace with function body.
+
+func on_player_ammo_changed(ammo):
+	ammo_label.text = "%d" % ammo

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjwv15iryj3eq"]
+[gd_scene load_steps=24 format=3 uid="uid://cjwv15iryj3eq"]
 
 [ext_resource type="Texture2D" uid="uid://d1me85o8a1mk3" path="res://resources/tiles/tileset_1.png" id="1_3b4bx"]
 [ext_resource type="Script" path="res://main.gd" id="1_ug8yj"]
@@ -10,6 +10,20 @@
 [ext_resource type="Script" path="res://my_tile_map_limits.gd" id="7_rhcda"]
 [ext_resource type="PackedScene" uid="uid://dao01kag4p3if" path="res://entities/units/enemies/enemy.tscn" id="8_8u1bm"]
 [ext_resource type="PackedScene" uid="uid://dgtn5rvxrewky" path="res://wave_manager.tscn" id="10_6c8k2"]
+[ext_resource type="Texture2D" uid="uid://82gtppf32b5h" path="res://ui/hud/hp_bar_cover.png" id="11_qvi0d"]
+[ext_resource type="Texture2D" uid="uid://d25wrqq16idrh" path="res://ui/hud/hp_bar_fill.png" id="12_craqw"]
+[ext_resource type="FontFile" uid="uid://djahgvhbiwjws" path="res://resources/fonts/komika_axis/KOMIKAX_.ttf" id="13_fhpti"]
+[ext_resource type="Texture2D" uid="uid://ru76f7igc031" path="res://ui/hud/overload_bar_cover.png" id="13_vwpih"]
+[ext_resource type="Texture2D" uid="uid://jln4rijmrron" path="res://ui/hud/overload_bar_fill.png" id="14_1oiyy"]
+[ext_resource type="Texture2D" uid="uid://b1js1c6dpad2l" path="res://ui/hud/bullet.png" id="16_sy2bd"]
+[ext_resource type="Texture2D" uid="uid://hy7s3f1r8xbt" path="res://ui/hud/wave.png" id="17_wl6vj"]
+
+[sub_resource type="Gradient" id="Gradient_2kgl5"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.57971, 0.322434, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_omkhf"]
+gradient = SubResource("Gradient_2kgl5")
+width = 1920
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fnsd"]
 texture = ExtResource("1_3b4bx")
@@ -31,8 +45,31 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_5fnsd")
 
+[sub_resource type="LabelSettings" id="LabelSettings_kjgvo"]
+font = ExtResource("13_fhpti")
+font_size = 24
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1pqeu"]
+font = ExtResource("13_fhpti")
+font_size = 60
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Main" type="Node"]
 script = ExtResource("1_ug8yj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 2020.0
+offset_top = -956.0
+offset_right = 4896.0
+offset_bottom = 1927.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_omkhf")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_7p2ac")
@@ -75,6 +112,109 @@ y_sort_enabled = true
 
 [node name="WaveManager" parent="." instance=ExtResource("10_6c8k2")]
 
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 300)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 414.0
+grow_horizontal = 2
+
+[node name="LifeContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="UILifeBar" type="TextureProgressBar" parent="UI/MarginContainer/LifeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+value = 80.0
+stretch_margin_left = 125
+texture_over = ExtResource("11_qvi0d")
+texture_progress = ExtResource("12_craqw")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/LifeContainer/UILifeBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LifeLabel" type="Label" parent="UI/MarginContainer/LifeContainer/UILifeBar/MarginContainer"]
+layout_mode = 2
+text = "8 / 8"
+label_settings = SubResource("LabelSettings_kjgvo")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="GoldBar" type="TextureProgressBar" parent="UI/MarginContainer/LifeContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+value = 80.0
+texture_over = ExtResource("13_vwpih")
+texture_progress = ExtResource("14_1oiyy")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/LifeContainer/GoldBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GoldLabel" type="Label" parent="UI/MarginContainer/LifeContainer/GoldBar/MarginContainer"]
+layout_mode = 2
+text = "999999999"
+label_settings = SubResource("LabelSettings_kjgvo")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/LifeContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/LifeContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("16_sy2bd")
+
+[node name="AmmoLabel" type="Label" parent="UI/MarginContainer/LifeContainer/HBoxContainer"]
+layout_mode = 2
+text = "999
+"
+label_settings = SubResource("LabelSettings_kjgvo")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("17_wl6vj")
+
+[node name="WaveLabel" type="Label" parent="UI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "999
+"
+label_settings = SubResource("LabelSettings_1pqeu")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
 [connection signal="enemy_spawned" from="EntitySpawner" to="." method="_on_entity_spawner_enemy_spawned"]
 [connection signal="player_spawned" from="EntitySpawner" to="." method="_on_entity_spawner_player_spawned"]
 [connection signal="group_spawn_timing_reached" from="WaveManager" to="." method="_on_wave_manager_group_spawn_timing_reached"]
+[connection signal="wave_started" from="WaveManager" to="." method="_on_wave_manager_wave_started"]
