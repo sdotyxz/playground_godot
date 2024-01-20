@@ -14,7 +14,8 @@ signal player_gold_changed(new_value)
 @onready var leg_right_front = $Animation/Leg_R_Front as Node2D
 @onready var leg_left_back = $Animation/Leg_L_Back as Node2D
 
-@onready var food_pack = $Animation/FoodPack
+@onready var food_pack = $Animation/FoodPack as Node2D
+var food_pack_config : Array = [10, 20, 30, 40]
 
 var VISIBLE_COLOR : Color = Color(1, 1, 1, 1)
 var INVISIBLE_COLOR : Color = Color(1, 1, 1, 0)
@@ -76,8 +77,24 @@ func _on_item_pickup_area_area_entered(area):
 		
 func add_gold(value:int):
 	player_stat_.gold_ += value
+	food_pack.visible = true
+	var pack_level = get_food_pack_level(player_stat_.gold_)
+	for i in food_pack.get_child_count():
+		var child_pack = food_pack.get_child(i) as Sprite2D
+		if pack_level >= i:
+			child_pack.visible = true
+		else:
+			child_pack.visible = false
 	emit_signal("player_gold_changed", player_stat_.gold_)
 
 func consume_gold():
 	player_stat_.gold_ = 0
+	food_pack.visible = false	
 	emit_signal("player_gold_changed", player_stat_.gold_)	
+
+func get_food_pack_level(value):
+	var pack_level = 0
+	for i in food_pack_config.size():
+		if value >= food_pack_config[i] :
+			pack_level = i
+	return pack_level

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpkrnbch8qw7g"]
+[gd_scene load_steps=20 format=3 uid="uid://bpkrnbch8qw7g"]
 
 [ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_54xeg"]
 [ext_resource type="Script" path="res://entities/units/player/player.gd" id="1_tai7c"]
@@ -7,8 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://bfwb2w404m2je" path="res://entities/units/player/leg.png" id="4_pyyo7"]
 [ext_resource type="Script" path="res://entities/units/movement_behaviors/player_movement_behavior.gd" id="4_ytwg7"]
 [ext_resource type="PackedScene" path="res://entities/units/player/fire.tscn" id="5_1iwb5"]
+[ext_resource type="Texture2D" uid="uid://hsod1o6assx" path="res://entities/units/player/food_pack_1.png" id="5_u421k"]
+[ext_resource type="Texture2D" uid="uid://c004wh6xms0l2" path="res://entities/units/player/food_pack_2.png" id="6_mjk57"]
+[ext_resource type="Texture2D" uid="uid://dwjilm3y021tn" path="res://entities/units/player/food_pack_3.png" id="7_mwiat"]
 [ext_resource type="Script" path="res://entities/units/player/player_stat.gd" id="8_jq88q"]
-[ext_resource type="Texture2D" uid="uid://2mexvjrswf4d" path="res://icon.svg" id="9_s50hq"]
+[ext_resource type="Texture2D" uid="uid://cwm1lam47yqw7" path="res://entities/units/player/food_pack_4.png" id="8_nwwyp"]
 
 [sub_resource type="Animation" id="Animation_ibgva"]
 resource_name = "RESET"
@@ -516,12 +519,31 @@ scale = Vector2(1, 0.3)
 texture = ExtResource("2_e8q38")
 
 [node name="FoodPack" type="Node2D" parent="Animation" index="1"]
-position = Vector2(0, 24)
+visible = false
 
-[node name="Sprite2D" type="Sprite2D" parent="Animation/FoodPack" index="0"]
-position = Vector2(-122, 28)
-scale = Vector2(0.421875, 0.421875)
-texture = ExtResource("9_s50hq")
+[node name="1" type="Sprite2D" parent="Animation/FoodPack" index="0"]
+visible = false
+position = Vector2(-154, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("5_u421k")
+
+[node name="2" type="Sprite2D" parent="Animation/FoodPack" index="1"]
+visible = false
+position = Vector2(-154, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("6_mjk57")
+
+[node name="3" type="Sprite2D" parent="Animation/FoodPack" index="2"]
+visible = false
+position = Vector2(-154, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("7_mwiat")
+
+[node name="4" type="Sprite2D" parent="Animation/FoodPack" index="3"]
+visible = false
+position = Vector2(-154, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("8_nwwyp")
 
 [node name="Fire2" parent="Animation" index="2" instance=ExtResource("5_1iwb5")]
 position = Vector2(59, 50)
