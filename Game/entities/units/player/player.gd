@@ -15,8 +15,18 @@ signal player_health_updated(health, max_health)
 @onready var leg_right_front = $Animation/Leg_R_Front as Node2D
 @onready var leg_left_back = $Animation/Leg_L_Back as Node2D
 
+@onready var fire_1 = $Animation/Fire as Node2D
+@onready var fire_2 = $Animation/Fire2 as Node2D
+
 @onready var food_pack = $Animation/FoodPack as Node2D
 var food_pack_config : Array = [10, 20, 30, 40]
+
+@onready var dish = $Animation/Dish as Node2D
+
+
+@onready var shadow = $Animation/Shadow as Node2D
+
+@onready var reload_fire = $ReloadFire as AnimatedSprite2D
 
 var VISIBLE_COLOR : Color = Color(1, 1, 1, 1)
 var INVISIBLE_COLOR : Color = Color(1, 1, 1, 0)
@@ -30,11 +40,23 @@ func _ready()->void :
 func _physics_process(delta):
 	if Input.is_action_pressed("Key_R"):#換彈
 		if player_stat_.gold_ > 0 :
+			var overload_level = 0
 			for child in weapons_container_.get_children():
 				if child is Weapon:
 					var weapon = child as Weapon
-					weapon.reload(player_stat_.gold_)
+					overload_level = weapon.reload(player_stat_.gold_)
+			if overload_level > 0:
+				dish.visible = true
+			else:
+				dish.visible = false
+			for i in dish.get_child_count():
+				var child_dish = dish.get_child(i) as Sprite2D
+				if overload_level > i:
+					child_dish.visible = true
+				else:
+					child_dish.visible = false
 			consume_gold()
+			play_reload_fire()
 	super._physics_process(delta)
 
 func get_remote_transform()->RemoteTransform2D:
@@ -126,5 +148,22 @@ func take_damage(value:int, hitbox:Hitbox) -> void :
 	if player_stat_.health_ <= 0:
 		die()
 	pass
+	
+func die(knockback_vector:Vector2 = Vector2.ZERO, p_cleaning_up:bool = false) -> void:
+	shadow.visible = false
+	weapons_container_.visible = false
+	leg_right_back.visible = false
+	leg_left_front.visible = false
+	leg_right_front.visible = false
+	leg_left_back.visible = false
+	fire_1.visible = false
+	fire_2.visible = false
+	food_pack.visible = false
+	super.die(knockback_vector, p_cleaning_up)
 
+func play_reload_fire():
+	reload_fire.visible = true
+	reload_fire.play("default")
 
+func _on_reload_fire_animation_finished():
+	reload_fire.visible = false

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ttdok3gowtu" path="res://weapons/ranged/pistol/pistol_projectile.png" id="3_kbt6m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_su2db"]
-radius = 61.16
+radius = 22.31
 
 [sub_resource type="Animation" id="Animation_ta8e5"]
 resource_name = "fire"
@@ -31,15 +31,16 @@ _data = {
 }
 
 [node name="BulletProjectile" instance=ExtResource("1_qixw1")]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("2_sjgiu")
 enable_physics_process = false
 piercing = 2
 
 [node name="Sprite2D" parent="." index="0"]
+position = Vector2(28, 0)
 texture = ExtResource("3_kbt6m")
 
 [node name="Hitbox" parent="." index="1"]
+position = Vector2(41, 0)
 collision_layer = 8
 
 [node name="Collision" parent="Hitbox" index="0"]

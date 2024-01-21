@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cjwv15iryj3eq"]
+[gd_scene load_steps=25 format=3 uid="uid://cjwv15iryj3eq"]
 
 [ext_resource type="Texture2D" uid="uid://d1me85o8a1mk3" path="res://resources/tiles/tileset_1.png" id="1_3b4bx"]
 [ext_resource type="Script" path="res://main.gd" id="1_ug8yj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://my_tile_map_limits.gd" id="7_rhcda"]
 [ext_resource type="PackedScene" uid="uid://dao01kag4p3if" path="res://entities/units/enemies/enemy.tscn" id="8_8u1bm"]
 [ext_resource type="PackedScene" uid="uid://dgtn5rvxrewky" path="res://wave_manager.tscn" id="10_6c8k2"]
+[ext_resource type="PackedScene" uid="uid://oeo6wh4awiir" path="res://entities/birth/entity_birth.tscn" id="10_h026c"]
 [ext_resource type="Texture2D" uid="uid://82gtppf32b5h" path="res://ui/hud/hp_bar_cover.png" id="11_qvi0d"]
 [ext_resource type="Texture2D" uid="uid://d25wrqq16idrh" path="res://ui/hud/hp_bar_fill.png" id="12_craqw"]
 [ext_resource type="FontFile" uid="uid://djahgvhbiwjws" path="res://resources/fonts/komika_axis/KOMIKAX_.ttf" id="13_fhpti"]
@@ -104,6 +105,7 @@ script = ExtResource("7_rhcda")
 script = ExtResource("7_byf1u")
 player_scene = ExtResource("6_vwtl5")
 enemy_secene = ExtResource("8_8u1bm")
+eneity_birth_scene = ExtResource("10_h026c")
 
 [node name="Items" type="Node2D" parent="."]
 

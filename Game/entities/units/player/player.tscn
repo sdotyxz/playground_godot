@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpkrnbch8qw7g"]
+[gd_scene load_steps=31 format=3 uid="uid://bpkrnbch8qw7g"]
 
 [ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_54xeg"]
 [ext_resource type="Script" path="res://entities/units/player/player.gd" id="1_tai7c"]
@@ -12,6 +12,16 @@
 [ext_resource type="Texture2D" uid="uid://dwjilm3y021tn" path="res://entities/units/player/food_pack_3.png" id="7_mwiat"]
 [ext_resource type="Script" path="res://entities/units/player/player_stat.gd" id="8_jq88q"]
 [ext_resource type="Texture2D" uid="uid://cwm1lam47yqw7" path="res://entities/units/player/food_pack_4.png" id="8_nwwyp"]
+[ext_resource type="Texture2D" uid="uid://dd82q2yrlp6c" path="res://entities/units/player/dish_1.png" id="11_sqhpu"]
+[ext_resource type="Texture2D" uid="uid://55cqj4xvpg1v" path="res://entities/units/player/dish_2.png" id="12_rh3sp"]
+[ext_resource type="Texture2D" uid="uid://bcvkm511gwe8j" path="res://entities/units/player/dish_3.png" id="13_a5ygt"]
+[ext_resource type="Texture2D" uid="uid://wxi7lgv25xh7" path="res://visual_effects/fire_effects/fire_1.png" id="16_qewli"]
+[ext_resource type="Texture2D" uid="uid://dsgs0tuu1eqi0" path="res://visual_effects/fire_effects/fire_2.png" id="17_gugr2"]
+[ext_resource type="Texture2D" uid="uid://bkwavmcn4tymj" path="res://visual_effects/fire_effects/fire_3.png" id="18_ktpf3"]
+[ext_resource type="Texture2D" uid="uid://c7in3e3ifcbqd" path="res://visual_effects/fire_effects/fire_4.png" id="19_fs5r4"]
+[ext_resource type="Texture2D" uid="uid://dwy5mdrjma2tl" path="res://visual_effects/fire_effects/fire_5.png" id="20_nflol"]
+[ext_resource type="Texture2D" uid="uid://ivyavlof36iy" path="res://visual_effects/fire_effects/fire_6.png" id="21_ce1er"]
+[ext_resource type="Texture2D" uid="uid://xn8vu2krutxh" path="res://visual_effects/fire_effects/fire_7.png" id="22_flj28"]
 
 [sub_resource type="Animation" id="Animation_ibgva"]
 resource_name = "RESET"
@@ -505,12 +515,44 @@ radius = 323.26
 [sub_resource type="CircleShape2D" id="CircleShape2D_g5yyj"]
 radius = 52.2
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ipj6o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_qewli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_gugr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ktpf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_fs5r4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_nflol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ce1er")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_flj28")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
 [node name="Player" instance=ExtResource("1_54xeg")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 collision_mask = 128
 script = ExtResource("1_tai7c")
 default_weapon_data = ExtResource("3_30g2a")
+
+[node name="Animation" parent="." index="0"]
+z_index = 1
 
 [node name="Shadow" type="Sprite2D" parent="Animation" index="0"]
 modulate = Color(0, 0, 0, 0.45098)
@@ -567,13 +609,30 @@ texture = ExtResource("4_pyyo7")
 [node name="Sprite2D" parent="Animation" index="6"]
 texture = ExtResource("2_e8q38")
 
-[node name="Leg_R_Front" type="Sprite2D" parent="Animation" index="7"]
+[node name="Dish" type="Node2D" parent="Animation" index="7"]
+visible = false
+position = Vector2(-6, 4)
+scale = Vector2(0.840003, 0.760002)
+
+[node name="Dish1" type="Sprite2D" parent="Animation/Dish" index="0"]
+position = Vector2(-4, -48)
+texture = ExtResource("11_sqhpu")
+
+[node name="Dish2" type="Sprite2D" parent="Animation/Dish" index="1"]
+position = Vector2(-2, -100)
+texture = ExtResource("12_rh3sp")
+
+[node name="Dish3" type="Sprite2D" parent="Animation/Dish" index="2"]
+position = Vector2(-48, -154)
+texture = ExtResource("13_a5ygt")
+
+[node name="Leg_R_Front" type="Sprite2D" parent="Animation" index="8"]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(39.1667, 55)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
 
-[node name="Leg_L_Front" type="Sprite2D" parent="Animation" index="8"]
+[node name="Leg_L_Front" type="Sprite2D" parent="Animation" index="9"]
 position = Vector2(-36, 59)
 skew = -0.0191216
 texture = ExtResource("4_pyyo7")
@@ -594,6 +653,7 @@ script = ExtResource("4_ytwg7")
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="." index="5"]
 
 [node name="Weapons" type="Node2D" parent="." index="6"]
+z_index = 3
 
 [node name="Attach" type="Node2D" parent="Weapons" index="0"]
 
@@ -614,6 +674,16 @@ shape = SubResource("CircleShape2D_g5yyj")
 [node name="PlayerStat" type="Node" parent="." index="9"]
 script = ExtResource("8_jq88q")
 
+[node name="ReloadFire" type="AnimatedSprite2D" parent="." index="10"]
+visible = false
+modulate = Color(1, 1, 1, 0.760784)
+z_index = 10
+position = Vector2(-12, -324)
+rotation = -0.139626
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_ipj6o")
+
 [connection signal="area_entered" from="ItemAttractArea" to="." method="_on_item_attract_area_area_entered"]
 [connection signal="area_exited" from="ItemAttractArea" to="." method="_on_item_attract_area_area_exited"]
 [connection signal="area_entered" from="ItemPickupArea" to="." method="_on_item_pickup_area_area_entered"]
+[connection signal="animation_finished" from="ReloadFire" to="." method="_on_reload_fire_animation_finished"]

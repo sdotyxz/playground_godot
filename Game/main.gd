@@ -59,7 +59,7 @@ func _on_entity_spawner_player_spawned(player:Player):
 	player_.connect("player_gold_changed", on_player_gold_changed)
 	player_.connect("player_health_updated", on_player_health_updated)
 	player_.connect("died", on_player_died)
-	player_.set_health(1, 1)
+	player_.set_health(10, 10)
 	on_player_gold_changed(0)
 	var weapon = player.equip_weapon()
 	weapon.connect("ammo_changed", on_player_ammo_changed)

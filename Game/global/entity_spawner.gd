@@ -6,6 +6,7 @@ signal enemy_spawned(enemy)
 
 @export var player_scene : PackedScene
 @export var enemy_secene : PackedScene
+@export var eneity_birth_scene : PackedScene
 
 var player_ : Player = null
 var entities_container_ : Node2D = null
@@ -51,6 +52,12 @@ func spawn_enemy_group(group_id : String):
 		for i in spawn_count:
 			var rand_pos = get_rand_pos()
 			var unit_scene = load(unit.unit_scene)
-			var entity = spawn_entity(unit_scene, rand_pos)
-			emit_signal("enemy_spawned", entity)
-	pass
+			var entity_birth = eneity_birth_scene.instantiate() as EntityBirth
+			entities_container_.add_child(entity_birth)	
+			entity_birth.global_position = rand_pos
+			entity_birth.set_birth_info(unit_scene, rand_pos)
+			entity_birth.connect("start_birth", on_start_birth)
+
+func on_start_birth(entity_scene, pos):
+	var entity = spawn_entity(entity_scene, pos)
+	emit_signal("enemy_spawned", entity)

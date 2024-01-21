@@ -22,10 +22,11 @@ func overload_p_num(p_num:float):#改变子弹发射数量
 	projectile_num = p_num
 
 func shoot_projectile(rotation:float = parent_.rotation, knockback:Vector2 = Vector2.ZERO)->void :
+	var mazz_position = parent_.get_mazz_position()
 	if weaponType == 1:#1-单发
 		var projectile = WeaponService.spawn_projectile(
 			rotation, 
-			parent_.global_position, 
+			mazz_position, 
 			projectile_v,
 			projectile_size) as PlayerProjectile
 		projectile.set_damage(damage)
@@ -35,7 +36,7 @@ func shoot_projectile(rotation:float = parent_.rotation, knockback:Vector2 = Vec
 			var _spread_rotation = randf_range(rotation+projectile_spread, rotation-projectile_spread)#散射
 			var projectile = WeaponService.spawn_projectile(
 				_spread_rotation, 
-				parent_.global_position, 
+				mazz_position, 
 				projectile_v,
 				projectile_size) as PlayerProjectile
 			projectile.set_damage(damage)
@@ -47,7 +48,7 @@ func shoot_projectile(rotation:float = parent_.rotation, knockback:Vector2 = Vec
 			a += 1
 			var projectile = WeaponService.spawn_projectile(
 				_spread_rotation, 
-				parent_.global_position, 
+				mazz_position, 
 				projectile_v,
 				projectile_size) as PlayerProjectile
 			projectile.set_damage(damage)
