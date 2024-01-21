@@ -54,7 +54,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_1pqeu"]
 font = ExtResource("13_fhpti")
 font_size = 60
-outline_size = 20
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
@@ -214,12 +214,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="GameOverTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [connection signal="enemy_spawned" from="EntitySpawner" to="." method="_on_entity_spawner_enemy_spawned"]
 [connection signal="player_spawned" from="EntitySpawner" to="." method="_on_entity_spawner_player_spawned"]
 [connection signal="group_spawn_timing_reached" from="WaveManager" to="." method="_on_wave_manager_group_spawn_timing_reached"]
 [connection signal="wave_started" from="WaveManager" to="." method="_on_wave_manager_wave_started"]
-[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

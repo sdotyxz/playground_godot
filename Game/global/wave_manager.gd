@@ -46,6 +46,9 @@ func start_wave():
 		wave_timer_.start(current_wave.duration)
 		emit_signal("wave_started", current_wave_index_)
 
+func stop_wave():
+	wave_timer_.stop()
+
 func _on_wave_timer_timeout():
 	print("Current Wave End")
 	current_wave_index_ += 1

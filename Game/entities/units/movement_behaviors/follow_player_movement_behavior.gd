@@ -12,4 +12,7 @@ func get_movement()->Vector2:
 	return get_target_position() - parent_.global_position
 
 func get_target_position():
-	return player_ref.global_position
+	if player_ref != null:
+		return player_ref.global_position
+	else: 
+		return parent_.global_position

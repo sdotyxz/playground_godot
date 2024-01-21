@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://c514fuyqeoby1"]
+
+[ext_resource type="Texture2D" uid="uid://cdjjmmuwm5rdl" path="res://ui/menus/end_screen/thanks_playing.png" id="1_j8ihl"]
+[ext_resource type="Script" path="res://ui/menus/end_screen/end_screen.gd" id="1_xl4gf"]
+[ext_resource type="Texture2D" uid="uid://c4k2l5liwehvg" path="res://ui/menus/end_screen/wave.png" id="2_vnp6p"]
+[ext_resource type="FontFile" uid="uid://djahgvhbiwjws" path="res://resources/fonts/komika_axis/KOMIKAX_.ttf" id="3_xdybs"]
+[ext_resource type="Texture2D" uid="uid://o8fw7imffxnq" path="res://ui/menus/end_screen/retry.png" id="4_p81fg"]
+[ext_resource type="Texture2D" uid="uid://bxffam6l5bu6f" path="res://ui/menus/end_screen/retry_press.png" id="6_dpl6w"]
+[ext_resource type="Texture2D" uid="uid://ca6wkc05aerly" path="res://ui/menus/end_screen/retry_hover.png" id="7_3825v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_au02v"]
+font = ExtResource("3_xdybs")
+font_size = 200
+outline_size = 50
+outline_color = Color(0, 0, 0, 1)
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xl4gf")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_j8ihl")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vnp6p")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -114.0
+offset_bottom = 213.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "99"
+label_settings = SubResource("LabelSettings_au02v")
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.5
+offset_top = -342.0
+offset_right = 263.5
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9, 0.9)
+pivot_offset = Vector2(263, 171)
+texture_normal = ExtResource("4_p81fg")
+texture_pressed = ExtResource("6_dpl6w")
+texture_hover = ExtResource("7_3825v")
+stretch_mode = 3
+
+[node name="RetryTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="button_up" from="TextureButton" to="." method="_on_texture_button_button_up"]
+[connection signal="timeout" from="RetryTimer" to="." method="_on_retry_timer_timeout"]

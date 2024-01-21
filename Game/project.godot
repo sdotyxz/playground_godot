@@ -21,6 +21,7 @@ GameConst="*res://singletons/game_const.gd"
 WeaponService="*res://singletons/weapon_service.gd"
 Utils="*res://singletons/utils.gd"
 ConfigService="*res://singletons/config_service.gd"
+RunData="*res://singletons/run_data.gd"
 
 [display]
 

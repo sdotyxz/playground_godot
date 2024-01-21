@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://x7jo44b7vwe5"]
+
+[ext_resource type="Script" path="res://ui/menus/wok_selection/wok_selection.gd" id="1_ql2gg"]
+[ext_resource type="Texture2D" uid="uid://cngfdmygkr2c3" path="res://ui/menus/wok_selection/select_your_wok.png" id="1_yoo6i"]
+[ext_resource type="Texture2D" uid="uid://2cxatue21rxa" path="res://ui/menus/wok_selection/selection_1.png" id="2_anrks"]
+[ext_resource type="Script" path="res://ui/menus/title_screen/my_start_button.gd" id="3_gq21e"]
+[ext_resource type="Texture2D" uid="uid://dya8gdaxsc2io" path="res://entities/units/player/body_2.png" id="4_aek70"]
+[ext_resource type="Texture2D" uid="uid://dlq3wpbrrduel" path="res://ui/menus/wok_selection/selection_2.png" id="4_gp8c5"]
+
+[node name="WokSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ql2gg")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yoo6i")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Selection1" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 300.0
+offset_top = -240.0
+offset_right = 827.0
+offset_bottom = 441.0
+grow_vertical = 2
+pivot_offset = Vector2(263, 340)
+texture_normal = ExtResource("2_anrks")
+texture_pressed = ExtResource("2_anrks")
+texture_hover = ExtResource("2_anrks")
+script = ExtResource("3_gq21e")
+
+[node name="TextureRect" type="TextureRect" parent="Selection1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("4_aek70")
+
+[node name="Selection2" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -844.0
+offset_top = -236.0
+offset_right = -317.0
+offset_bottom = 445.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(263, 340)
+texture_normal = ExtResource("4_gp8c5")
+texture_pressed = ExtResource("4_gp8c5")
+texture_hover = ExtResource("4_gp8c5")
+script = ExtResource("3_gq21e")
+
+[node name="EnterGameTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="button_down" from="Selection1" to="Selection1" method="_on_button_down"]
+[connection signal="button_up" from="Selection1" to="." method="_on_selection_1_button_up"]
+[connection signal="button_up" from="Selection1" to="Selection1" method="_on_button_up"]
+[connection signal="mouse_entered" from="Selection1" to="Selection1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Selection1" to="Selection1" method="_on_mouse_exited"]
+[connection signal="button_down" from="Selection2" to="Selection2" method="_on_button_down"]
+[connection signal="button_up" from="Selection2" to="Selection2" method="_on_button_up"]
+[connection signal="mouse_entered" from="Selection2" to="Selection2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Selection2" to="Selection2" method="_on_mouse_exited"]
+[connection signal="timeout" from="EnterGameTimer" to="." method="_on_enter_game_timer_timeout"]

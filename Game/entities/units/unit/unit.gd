@@ -40,9 +40,15 @@ func get_movement()->Vector2:
 
 func _on_hurtbox_area_entered(hitBox:Area2D):
 	print("_on_hurtbox_area_entered")
+	if dead_:
+		return	
+	var damage = hitBox.damage
+	take_damage(damage, hitBox)
 	on_hurt()
 	pass # Replace with function body.
+
+func take_damage(value:int, hitbox:Hitbox) -> void :
+	pass
 	
 func on_hurt()->void :
-	die()
 	pass

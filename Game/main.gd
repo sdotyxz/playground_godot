@@ -11,6 +11,11 @@ extends Node
 #ui
 @onready var wave_label = $UI/MarginContainer/VBoxContainer/HBoxContainer/WaveLabel as Label
 @onready var ammo_label = $UI/MarginContainer/LifeContainer/HBoxContainer/AmmoLabel as Label
+@onready var gold_label = $UI/MarginContainer/LifeContainer/GoldBar/MarginContainer/GoldLabel as Label
+@onready var gold_progress_bar = $UI/MarginContainer/LifeContainer/GoldBar as TextureProgressBar
+@onready var health_label = $UI/MarginContainer/LifeContainer/UILifeBar/MarginContainer/LifeLabel as Label
+@onready var health_bar = $UI/MarginContainer/LifeContainer/UILifeBar as TextureProgressBar
+@onready var game_over_timer = $GameOverTimer as Timer
 
 const EDGE_SIZE = 96
 const MAP_WIDTH = 30
@@ -30,9 +35,7 @@ func _ready():
 	var min_pos = Vector2.ZERO
 	
 	entity_spawner_.init(entities_container_, min_pos, max_pos)
-	
-	wave_manager_.init(1)
-
+	wave_manager_.init(1)		
 	pass # Replace with function body.
 
 func init_camera()->void:
@@ -54,9 +57,13 @@ func _on_entity_spawner_player_spawned(player:Player):
 	player.get_remote_transform().remote_path = camera_.get_path()
 	player_ = player
 	player_.connect("player_gold_changed", on_player_gold_changed)
+	player_.connect("player_health_updated", on_player_health_updated)
+	player_.connect("died", on_player_died)
+	player_.set_health(1, 1)
+	on_player_gold_changed(0)
 	var weapon = player.equip_weapon()
 	weapon.connect("ammo_changed", on_player_ammo_changed)
-	weapon.reload()
+	weapon.reload(10)
 	pass # Replace with function body.
 
 func _on_wave_manager_group_spawn_timing_reached(group_id):
@@ -80,7 +87,8 @@ func on_gold_picked_up(gold:Gold):
 	player_.add_gold(gold.value)
 
 func on_player_gold_changed(new_value):
-	print("on_player_gold_changed : ", new_value)
+	gold_label.text = "%d" % new_value
+	gold_progress_bar.value = new_value #/ gold_progress_bar.max_value
 
 func _on_wave_manager_wave_started(wave_index):
 	var index : int = wave_index + 1
@@ -89,3 +97,16 @@ func _on_wave_manager_wave_started(wave_index):
 
 func on_player_ammo_changed(ammo):
 	ammo_label.text = "%d" % ammo
+
+func on_player_health_updated(health, max_health):
+	health_label.text = "%d / %d" % [health, max_health]
+	health_bar.value = health
+	health_bar.max_value = max_health
+
+func on_player_died(player:Player):
+	RunData.final_wave = wave_manager_.current_wave_index_
+	wave_manager_.stop_wave()
+	game_over_timer.start()
+	
+func _on_game_over_timer_timeout():
+	get_tree().change_scene_to_file("res://ui/menus/end_screen/end_screen.tscn")	

@@ -2,11 +2,12 @@ class_name Player
 extends Unit
 
 signal player_gold_changed(new_value)
+signal player_health_updated(health, max_health)
 
 @export var default_weapon_data : WeaponData
 
 @onready var weapons_container_ = $Weapons
-@onready var player_stat_ = $PlayerStat
+@onready var player_stat_ = $PlayerStat as PlayerStat
 
 @onready var leg_right_back = $Animation/Leg_R_Back as Node2D
 @onready var leg_left_front = $Animation/Leg_L_Front as Node2D
@@ -25,6 +26,16 @@ var INVISIBLE_COLOR : Color = Color(1, 1, 1, 0)
 func _ready()->void :
 	#cur_weapon = add_weapon(default_weapon_data)
 	super._ready()
+	
+func _physics_process(delta):
+	if Input.is_action_pressed("Key_R"):#換彈
+		if player_stat_.gold_ > 0 :
+			for child in weapons_container_.get_children():
+				if child is Weapon:
+					var weapon = child as Weapon
+					weapon.reload(player_stat_.gold_)
+			consume_gold()
+	super._physics_process(delta)
 
 func get_remote_transform()->RemoteTransform2D:
 	return $RemoteTransform2D as RemoteTransform2D
@@ -102,3 +113,18 @@ func get_food_pack_level(value):
 		if value >= food_pack_config[i] :
 			pack_level = i
 	return pack_level
+
+func set_health(health, max_health):
+	player_stat_.health_ = health
+	player_stat_.max_health_ = max_health
+	emit_signal("player_health_updated", health, max_health)
+	pass
+
+func take_damage(value:int, hitbox:Hitbox) -> void :
+	player_stat_.health_ = max(0.0, player_stat_.health_ - value) 
+	emit_signal("player_health_updated", player_stat_.health_, player_stat_.max_health_)
+	if player_stat_.health_ <= 0:
+		die()
+	pass
+
+

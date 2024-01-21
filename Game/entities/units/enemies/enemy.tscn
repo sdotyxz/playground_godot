@@ -12,6 +12,8 @@ collision_layer = 4
 collision_mask = 132
 script = ExtResource("2_u1j3i")
 material_scene = null
+damage = 1
+max_health = 1
 speed = 150
 
 [node name="Shadow" type="Sprite2D" parent="Animation" index="0"]
@@ -28,6 +30,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="Hitbox" parent="." index="4" instance=ExtResource("2_u431i")]
+collision_layer = 4
 
 [node name="MovementBehavior" type="Node2D" parent="." index="5"]
 script = ExtResource("4_s3skm")

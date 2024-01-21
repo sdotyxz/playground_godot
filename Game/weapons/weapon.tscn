@@ -18,8 +18,3 @@ shape = SubResource("CircleShape2D_r5y45")
 
 [node name="ShootingBehavior" type="Node2D" parent="."]
 script = ExtResource("2_wkhn6")
-projectile_spread = null
-projectile_num = null
-weaponType = null
-projectile_v = null
-projectile_lifetime = null
