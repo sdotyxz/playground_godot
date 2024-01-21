@@ -7,6 +7,7 @@ extends Unit
 
 @onready var hitbox = $Hitbox as Hitbox
 @onready var shadow = $Animation/Shadow as Sprite2D
+@onready var attack_behavior = $AttackBehavior as AttackBehavior
 
 var health : int = 1
 
@@ -14,6 +15,7 @@ func init(zone_min_pos:Vector2, zone_max_pos:Vector2, p_player_ref:Node2D = null
 	hitbox.set_damage(damage)
 	health = max_health
 	super.init(zone_min_pos, zone_max_pos, p_player_ref, entity_spawner_ref)
+	attack_behavior.init(self)
 
 func take_damage(value:int, hitbox:Hitbox) -> void :
 	knockback_direction = hitbox.get_parent().velocity_.normalized() 
@@ -22,5 +24,13 @@ func take_damage(value:int, hitbox:Hitbox) -> void :
 	health = maxi(0, health - value)
 	if health <= 0:
 		shadow.visible = false
+		attack_behavior.set_physics_process(false)
 		die()
 	pass
+
+func shoot() -> void:
+	attack_behavior.shoot()
+	pass
+	
+func play_idle() -> void:
+	animation_player_.play("idle")

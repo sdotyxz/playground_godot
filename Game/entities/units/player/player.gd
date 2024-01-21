@@ -38,7 +38,7 @@ func _ready()->void :
 	super._ready()
 	
 func _physics_process(delta):
-	if Input.is_action_pressed("Key_R"):#換彈
+	if Input.is_action_pressed("reload"):#換彈
 		if player_stat_.gold_ > 0 :
 			var overload_level = 0
 			for child in weapons_container_.get_children():
@@ -145,6 +145,7 @@ func set_health(health, max_health):
 func take_damage(value:int, hitbox:Hitbox) -> void :
 	player_stat_.health_ = max(0.0, player_stat_.health_ - value) 
 	emit_signal("player_health_updated", player_stat_.health_, player_stat_.max_health_)
+	EffectService.play_hit_effect(global_position, knockback_direction, 1)
 	if player_stat_.health_ <= 0:
 		die()
 	pass

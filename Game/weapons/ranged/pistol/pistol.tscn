@@ -4,6 +4,33 @@
 [ext_resource type="Script" path="res://weapons/ranged/pistol/pistol.gd" id="2_fs5v8"]
 [ext_resource type="Texture2D" uid="uid://b3ba5qtj83kh" path="res://weapons/ranged/pistol/pistol.png" id="2_l5v0v"]
 
+[sub_resource type="Animation" id="Animation_3hd8g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(92, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_jn8rd"]
 resource_name = "fire"
 length = 0.5
@@ -45,33 +72,6 @@ tracks/2/keys = {
 "args": [],
 "method": &"pistol_fire"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_3hd8g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Body:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(92, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uwav6"]

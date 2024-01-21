@@ -3,6 +3,8 @@ extends Node2D
 
 signal ammo_changed(ammo:int)
 
+@onready var default_projectile = preload("res://projectiles/bullet/bullet_projectile.tscn")
+
 @onready var shooting_behavior_ : WeaponShootingBehavior = $ShootingBehavior
 
 @export var Ammomax = 1#最大子弹数量
@@ -10,6 +12,8 @@ signal ammo_changed(ammo:int)
 @export var everyshootreduceAmmo = 1#每次射击消除的子弹数量
 
 @export var overloadState = 1#能力类型
+
+var cur_overload_level = 0
 
 func _ready():
 	shooting_behavior_.init(self)
@@ -34,6 +38,9 @@ func shoot():
 
 func get_mazz_position() -> Vector2:
 	return global_position
+
+func get_projectile_scene() -> PackedScene:
+	return default_projectile
 	
 func reload(material:int) -> int:
 	var overload_level = 0
@@ -68,5 +75,6 @@ func reload(material:int) -> int:
 	if overloadState == 3:#子弹散射变大，双倍发射，未实现
 		pass
 		
+	cur_overload_level = overload_level
 	return overload_level
 	#bagAmmo = AmmoClear#清空彈夾不成功，使用這個語句后，換彈沒有子彈

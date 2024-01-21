@@ -59,11 +59,11 @@ func _on_entity_spawner_player_spawned(player:Player):
 	player_.connect("player_gold_changed", on_player_gold_changed)
 	player_.connect("player_health_updated", on_player_health_updated)
 	player_.connect("died", on_player_died)
-	player_.set_health(10, 10)
+	player_.set_health(30, 30)
 	on_player_gold_changed(0)
 	var weapon = player.equip_weapon()
 	weapon.connect("ammo_changed", on_player_ammo_changed)
-	weapon.reload(10)
+	weapon.reload(8)
 	pass # Replace with function body.
 
 func _on_wave_manager_group_spawn_timing_reached(group_id):

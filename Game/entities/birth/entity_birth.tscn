@@ -3,6 +3,21 @@
 [ext_resource type="Script" path="res://entities/birth/entity_birth.gd" id="1_cy8n1"]
 [ext_resource type="Texture2D" uid="uid://c7uhrx5dwgbje" path="res://entities/birth/entity_birth.png" id="1_fkggg"]
 
+[sub_resource type="Animation" id="Animation_uy0is"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.968627, 0.431373, 0.431373, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_wi8br"]
 resource_name = "birth"
 step = 0.02
@@ -31,21 +46,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"spawn_entity"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_uy0is"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.968627, 0.431373, 0.431373, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p6fr8"]

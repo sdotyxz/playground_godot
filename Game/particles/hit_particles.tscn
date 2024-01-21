@@ -23,6 +23,7 @@ scale_curve = SubResource("CurveTexture_iddnm")
 color = Color(0.415686, 0.745098, 0, 1)
 
 [node name="HitParticles" type="GPUParticles2D"]
+z_index = 10
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_xql8w")
 lifetime = 0.5

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dao01kag4p3if"]
+[gd_scene load_steps=7 format=3 uid="uid://dao01kag4p3if"]
 
 [ext_resource type="PackedScene" uid="uid://dryl2wpgj8nbq" path="res://entities/units/unit/unit.tscn" id="1_644dt"]
 [ext_resource type="Script" path="res://entities/units/enemies/enemy.gd" id="2_u1j3i"]
 [ext_resource type="PackedScene" uid="uid://cgfrpw1bdmscf" path="res://overlap/hitbox.tscn" id="2_u431i"]
 [ext_resource type="Texture2D" uid="uid://byuecwiioigtm" path="res://entities/units/enemies/1/enemy_1.png" id="3_p3n0e"]
 [ext_resource type="Script" path="res://entities/units/movement_behaviors/follow_player_movement_behavior.gd" id="4_s3skm"]
+[ext_resource type="Script" path="res://entities/units/enemies/attack_behavior/attack_behavior.gd" id="6_47rjf"]
 
 [node name="Enemy" instance=ExtResource("1_644dt")]
 scale = Vector2(0.25, 0.25)
@@ -34,6 +35,9 @@ collision_layer = 4
 
 [node name="MovementBehavior" type="Node2D" parent="." index="5"]
 script = ExtResource("4_s3skm")
+
+[node name="AttackBehavior" type="Node2D" parent="." index="6"]
+script = ExtResource("6_47rjf")
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

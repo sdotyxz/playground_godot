@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://c41k6dqru7g1o" path="res://projectiles/projectile.tscn" id="1_qixw1"]
 [ext_resource type="Script" path="res://projectiles/player_projectile.gd" id="2_sjgiu"]
-[ext_resource type="Texture2D" uid="uid://c8ttdok3gowtu" path="res://weapons/ranged/pistol/pistol_projectile.png" id="3_kbt6m"]
+[ext_resource type="Texture2D" uid="uid://cvbc01xliryvm" path="res://projectiles/bullet/projectile.png" id="3_4y613"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_su2db"]
-radius = 22.31
+radius = 15.0
 
 [sub_resource type="Animation" id="Animation_ta8e5"]
 resource_name = "fire"
@@ -36,11 +36,9 @@ enable_physics_process = false
 piercing = 2
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(28, 0)
-texture = ExtResource("3_kbt6m")
+texture = ExtResource("3_4y613")
 
 [node name="Hitbox" parent="." index="1"]
-position = Vector2(41, 0)
 collision_layer = 8
 
 [node name="Collision" parent="Hitbox" index="0"]

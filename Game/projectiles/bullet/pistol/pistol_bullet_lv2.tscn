@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://blvdw2bglm7pj"]
+
+[ext_resource type="PackedScene" uid="uid://cmx53ti0ip2m1" path="res://projectiles/bullet/bullet_projectile.tscn" id="1_f2j58"]
+[ext_resource type="Texture2D" uid="uid://dgldteed73fhf" path="res://projectiles/bullet/pistol/pistol_projectile_lv2.png" id="2_it5fg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d7d1h"]
+radius = 30.0
+
+[node name="PistolBullet" instance=ExtResource("1_f2j58")]
+piercing = 3
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_it5fg")
+
+[node name="Collision" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_d7d1h")
+
+[editable path="Hitbox"]
