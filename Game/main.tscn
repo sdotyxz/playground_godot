@@ -105,10 +105,11 @@ script = ExtResource("7_byf1u")
 player_scene = ExtResource("6_vwtl5")
 enemy_secene = ExtResource("8_8u1bm")
 
-[node name="Enitties" type="Node2D" parent="."]
-y_sort_enabled = true
-
 [node name="Items" type="Node2D" parent="."]
+
+[node name="Enitties" type="Node2D" parent="."]
+z_index = 1
+y_sort_enabled = true
 
 [node name="WaveManager" parent="." instance=ExtResource("10_6c8k2")]
 

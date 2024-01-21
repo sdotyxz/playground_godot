@@ -22,6 +22,7 @@ WeaponService="*res://singletons/weapon_service.gd"
 Utils="*res://singletons/utils.gd"
 ConfigService="*res://singletons/config_service.gd"
 RunData="*res://singletons/run_data.gd"
+EffectService="*res://singletons/effect_service.gd"
 
 [display]
 

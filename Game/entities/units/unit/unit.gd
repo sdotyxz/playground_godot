@@ -10,6 +10,8 @@ var current_movement_behavior_:MovementBehavior
 @onready var movement_behavior_: = $MovementBehavior
 @export var speed : int
 
+var knockback_direction : Vector2
+
 func _ready()->void :
 	current_movement_behavior_ = movement_behavior_
 
@@ -27,6 +29,8 @@ func _physics_process(delta):
 	update_animation(current_movement_)
 	
 	velocity = current_movement_.normalized() * speed
+	if dead_ :
+		velocity = knockback_direction * speed * 2
 	move_and_slide()
 
 func update_animation(movement:Vector2)->void :
@@ -45,6 +49,7 @@ func _on_hurtbox_area_entered(hitBox:Area2D):
 	var damage = hitBox.damage
 	take_damage(damage, hitBox)
 	on_hurt()
+	hitBox.hit_something(self, damage)
 	pass # Replace with function body.
 
 func take_damage(value:int, hitbox:Hitbox) -> void :
