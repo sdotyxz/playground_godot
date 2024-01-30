@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://gdjrb6mmwly6"]
+
+[ext_resource type="Script" path="res://examples/csv-data-importer/test_csv_data_importer.gd" id="1_smm6o"]
+
+[node name="TestCSVDataImporter" type="Node"]
+script = ExtResource("1_smm6o")
