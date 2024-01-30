@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj268iid7pyaf"]
+
+[ext_resource type="Texture2D" uid="uid://2mexvjrswf4d" path="res://icon.svg" id="1_tiywm"]
+[ext_resource type="Script" path="res://prototype/prototype_paper_node_2d.gd" id="2_hrwvs"]
+
+[node name="Root" type="Node2D"]
+
+[node name="PrototypePaperNode2D" type="Sprite2D" parent="."]
+position = Vector2(361, 262)
+texture = ExtResource("1_tiywm")
+region_rect = Rect2(0, 0, 128, 128)
+script = ExtResource("2_hrwvs")
