@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dho41bavyr8qt"]
+
+[ext_resource type="Texture2D" uid="uid://dpqfsjs3l4ukh" path="res://puzzle_chess/entity/dots/dot_circle.png" id="1_4v1o2"]
+
+[node name="dot_circle" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4v1o2")
