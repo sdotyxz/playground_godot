@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk7r4epciukgm"]
+[gd_scene load_steps=3 format=3 uid="uid://dk7r4epciukgm"]
 
+[ext_resource type="Script" path="res://puzzle_chess/entity/dots/dot.gd" id="1_s1tpe"]
 [ext_resource type="Texture2D" uid="uid://ngth05fyefno" path="res://puzzle_chess/entity/dots/dot_square.png" id="1_tdn8i"]
 
 [node name="dot_square" type="Node2D"]
+script = ExtResource("1_s1tpe")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tdn8i")
