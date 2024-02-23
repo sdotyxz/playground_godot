@@ -1,12 +1,24 @@
 extends Node2D
 
-# possible dots
-@onready var possible_dots = [
-	preload("res://puzzle_chess/entity/dots/dot_square.tscn"),
-	preload("res://puzzle_chess/entity/dots/dot_circle.tscn"),
-	preload("res://puzzle_chess/entity/dots/dot_triangle.tscn"),
-	preload("res://puzzle_chess/entity/dots/dot_diamond.tscn"),
-]
+# define enum of match3 game state
+enum State {
+	wait,
+	move
+}
+
+var state = State.move
+
+var destroy_timer = Timer.new()
+var collapse_timer = Timer.new()
+var refill_timer = Timer.new()
+
+# define a dictionary dot type as key and scene as value
+@onready var dot_dict = {
+	Dot.DotType.SQUARE : preload("res://puzzle_chess/entity/dots/dot_square.tscn"),
+	Dot.DotType.CIRCLE : preload("res://puzzle_chess/entity/dots/dot_circle.tscn"),
+	Dot.DotType.TRIANGLE : preload("res://puzzle_chess/entity/dots/dot_triangle.tscn"),
+	Dot.DotType.DIAMOND : preload("res://puzzle_chess/entity/dots/dot_diamond.tscn"),
+}
 
 @onready var tile_map : TileMap = $TileMap
 
@@ -27,11 +39,37 @@ var controlling = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	state = State.move
+	setup_timer()
+	randomize()
 	all_dots = make_2d_array()
 	spawn_dots()
 	find_matches()
 	pass # Replace with function body.
 
+# setup timer
+func setup_timer():
+	destroy_timer.set_wait_time(0.2)
+	destroy_timer.set_one_shot(true)
+	destroy_timer.connect("timeout", Callable(self, "destroy_matches"))
+	add_child(destroy_timer)
+
+	collapse_timer.set_wait_time(0.2)
+	collapse_timer.set_one_shot(true)
+	collapse_timer.connect("timeout", Callable(self, "collapse_columns"))
+	add_child(collapse_timer)
+
+	refill_timer.set_wait_time(0.2)
+	refill_timer.set_one_shot(true)
+	refill_timer.connect("timeout", Callable(self, "refill_columns"))
+	add_child(refill_timer)
+
+# restricted fill
+func restricted_fill(column, row):
+	var fill_point = start_point + Vector2i(column, row)
+	if block_rect.has_point(fill_point):
+		return true
+	return false
 
 # make 2d array
 func make_2d_array():
@@ -46,24 +84,44 @@ func make_2d_array():
 func spawn_dots():
 	for i in width:
 		for j in height:
-			var dot = possible_dots[randi() % possible_dots.size()].instantiate()
+			spawn_dot_at(i, j)
 
-			# define dot point
-			var dot_point = start_point + Vector2i(i, j)
+# spawn dot at coulmn and row
+func spawn_dot_at(column, row):
 
-			# check if the dot point is in the block rect
-			if block_rect.has_point(dot_point):
-				continue
+	if restricted_fill(column, row):
+		return
+	
+	var dot_point = start_point + Vector2i(column, row)
+	var dot_type = randi() % Dot.DotType.MAX
+	var loop_count = 0
+	while match_at(column, row, dot_type) && loop_count < 100:
+		dot_type = randi() % Dot.DotType.MAX
+		loop_count += 1
+	var dot : Dot = dot_dict[dot_type].instantiate()
+	dot.position = tile_map.map_to_local(dot_point)
+	add_child(dot)
+	all_dots[column][row] = dot
 
-			dot.position = tile_map.map_to_local(dot_point)
-			dot.scale = Vector2(0.125, 0.125)
-
-			add_child(dot)
-			all_dots[i][j] = dot
+# check match at column and row
+func match_at(column, row, dot_type):
+	if column > 1:
+		var dot_left_1 : Dot = all_dots[column - 1][row]
+		var dot_left_2 : Dot = all_dots[column - 2][row]
+		var dots_valid = dot_left_1 != null && dot_left_2 != null
+		if dots_valid && dot_left_1.dot_type == dot_type && dot_left_2.dot_type == dot_type:
+			return true
+	if row > 1:
+		var dot_up_1 : Dot = all_dots[column][row - 1]
+		var dot_up_2 : Dot = all_dots[column][row - 2]
+		var dots_valid = dot_up_1 != null && dot_up_2 != null
+		if dots_valid && dot_up_1.dot_type == dot_type && dot_up_2.dot_type == dot_type:
+			return true
+	return false
 
 # convert grid to world position
 func grid_to_world_position(column, row):
-	var tile_map_point = start_point + Vector2(column, row)
+	var tile_map_point = start_point + Vector2i(column, row)
 	return tile_map.map_to_local(tile_map_point)
 
 # convert world position to grid
@@ -99,9 +157,7 @@ func swap_dots(column, row, direction):
 	var first_dot = all_dots[column][row]
 	var other_dot = all_dots[column + direction.x][row + direction.y]
 	if first_dot != null && other_dot != null:
-		# todo : store info
-		# store_info(first_dot, other_dot, Vector2(column, row), direction)
-		# state = wait
+		state = State.wait
 		all_dots[column][row] = other_dot
 		all_dots[column + direction.x][row + direction.y] = first_dot
 		var first_dot_position = first_dot.position
@@ -109,8 +165,6 @@ func swap_dots(column, row, direction):
 		first_dot.move(other_dot_position)
 		other_dot.move(first_dot_position)
 		find_matches()
-		# if !move_checked:
-		# 	find_matches()
 
 # handle touch diffence
 func touch_diff(grid_1, grid_2):
@@ -129,7 +183,8 @@ func touch_diff(grid_1, grid_2):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	touch_input()
+	if state == State.move:
+		touch_input()
 	pass
 
 # check grid dot is null
@@ -162,10 +217,62 @@ func find_matches():
 				var valid_up_down = up_dot != null && down_dot != null
 				if valid_up_down && up_dot.dot_type == target_dot_type && down_dot.dot_type == target_dot_type:
 					match_and_dim_dots([up_dot, target_dot, down_dot])
+					
+	destroy_timer.start()
 
 # match and dim dots
 func match_and_dim_dots(dot_array):
 	# dim dots
 	for dot in dot_array:
+		dot.matched = true
 		dot.dim()
 	pass
+
+func destroy_matches():
+	for i in width:
+		for j in height:
+			var dot = all_dots[i][j] as Dot
+			if dot != null && dot.matched:
+				dot.queue_free()
+				all_dots[i][j] = null
+	collapse_timer.start()
+
+func collapse_columns():
+	for i in width:
+		for j in height:
+			var dot = all_dots[i][j]
+			if dot != null:
+				continue
+			if restricted_fill(i, j):
+				continue
+			for k in range(j + 1, height):
+				var other_dot = all_dots[i][k]
+				if other_dot != null:
+					all_dots[i][j] = other_dot
+					all_dots[i][k] = null
+					other_dot.move(grid_to_world_position(i, j))
+					break
+	refill_timer.start()
+
+func refill_columns():
+	for i in width:
+		for j in height:
+			if all_dots[i][j] != null:
+				continue
+			spawn_dot_at(i, j)
+	after_refill()
+
+func after_refill():
+	var has_match = false
+	# loop through grid
+	for i in width:
+		for j in height:
+			var dot : Dot = all_dots[i][j]
+			if dot != null:
+				if match_at(i, j, dot.dot_type):
+					has_match = true
+					break
+	if has_match:
+		find_matches()
+	else:
+		state = State.move

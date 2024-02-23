@@ -1,11 +1,13 @@
-extends Node
+class_name Dot
+extends Node2D
 
 # define enum for the different types of dot
 enum DotType { 
 	SQUARE,
 	CIRCLE,
 	TRIANGLE,
-	DIAMOND
+	DIAMOND,
+	MAX
 }
 
 # export dot type
@@ -13,8 +15,12 @@ enum DotType {
 
 @onready var sprite : Sprite2D = $Sprite2D
 
+var matched = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# set scale to 0.125
+	scale = Vector2(0.125, 0.125)
 	pass # Replace with function body.
 
 # move dot
