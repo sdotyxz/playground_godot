@@ -1,3 +1,4 @@
+class_name Match3Grid
 extends Node2D
 
 # define enum of match3 game state
@@ -22,6 +23,10 @@ var refill_timer = Timer.new()
 
 @onready var tile_map : TileMap = $TileMap
 
+@onready var effectors = [
+	$UpgradeMatch
+]
+
 @export var width = 20
 @export var height = 20
 
@@ -32,6 +37,8 @@ var start_point = Vector2i(20, 7)
 var block_rect = Rect2(26, 15, 8, 4)
 
 var all_dots = []
+
+var current_matches = []
 
 var first_touch = Vector2i(0,0)
 var final_touch = Vector2i(0,0)
@@ -44,7 +51,7 @@ func _ready():
 	randomize()
 	all_dots = make_2d_array()
 	spawn_dots()
-	find_matches()
+	find_all_matches()
 	pass # Replace with function body.
 
 # setup timer
@@ -157,14 +164,14 @@ func swap_dots(column, row, direction):
 	var first_dot = all_dots[column][row]
 	var other_dot = all_dots[column + direction.x][row + direction.y]
 	if first_dot != null && other_dot != null:
-		state = State.wait
+		# state = State.wait
 		all_dots[column][row] = other_dot
 		all_dots[column + direction.x][row + direction.y] = first_dot
 		var first_dot_position = first_dot.position
 		var other_dot_position = other_dot.position
 		first_dot.move(other_dot_position)
 		other_dot.move(first_dot_position)
-		find_matches()
+		find_all_matches()
 
 # handle touch diffence
 func touch_diff(grid_1, grid_2):
@@ -191,50 +198,89 @@ func _process(delta):
 func is_grid_null(column, row):
 	return all_dots[column][row] == null
 
-func find_matches():
+# get dot at column and row
+func get_dot_at(column, row):
+	return all_dots[column][row]
+
+func find_all_matches():
+	# log find all matches
+	print("find_all_matches")
+	current_matches = []
+	var in_column_matches_grids = []
+	var in_row_matches_grids = []
 	for i in width:
 		for j in height:
-			var target_dot = all_dots[i][j]
-			# if the dot is null continue
-			if target_dot == null:
+			var dot = all_dots[i][j]
+			
+			if dot == null:
 				continue
-			var target_dot_type = target_dot.dot_type
-			if i > 0 && i < width -1:
-				# get dot in i - 1, j and i + 1, j
-				var left_dot = all_dots[i - 1][j]
-				var right_dot = all_dots[i + 1][j]
 
-				# if left dot and right dot is not null and the dot type is the same
-				var valid_left_right = left_dot != null && right_dot != null
-				if valid_left_right && left_dot.dot_type == target_dot_type && right_dot.dot_type == target_dot_type:
-					match_and_dim_dots([left_dot, target_dot, right_dot])
-			if j > 0 && j < height -1:
-				# get dot in i, j - 1 and i, j + 1
-				var up_dot = all_dots[i][j - 1]
-				var down_dot = all_dots[i][j + 1]
-
-				# if up dot and down dot is not null and the dot type is the same
-				var valid_up_down = up_dot != null && down_dot != null
-				if valid_up_down && up_dot.dot_type == target_dot_type && down_dot.dot_type == target_dot_type:
-					match_and_dim_dots([up_dot, target_dot, down_dot])
-					
+			if in_column_matches_grids.find(Vector2i(i, j)) == -1:			
+				var match_array_right = [Vector2i(i, j)]
+				find_match_at_right(i, j, match_array_right)
+				if match_array_right.size() >= 3:
+					current_matches.append(match_array_right)
+					# append all dots in match array to in matches dots
+					for match_grid in match_array_right:
+						in_column_matches_grids.append(match_grid)
+			
+			if in_row_matches_grids.find(Vector2i(i, j)) == -1:
+				var match_array_down = [Vector2i(i, j)]
+				find_match_at_down(i, j, match_array_down)
+				if match_array_down.size() >= 3:
+					current_matches.append(match_array_down)
+					# append all dots in match array to in matches dots
+					for match_grid in match_array_down:
+						in_row_matches_grids.append(match_grid)
+	
+	# set all dots in matches to matched
+	for match_array in current_matches:
+		process_match_array(match_array)
+	
 	destroy_timer.start()
 
-# match and dim dots
-func match_and_dim_dots(dot_array):
-	# dim dots
-	for dot in dot_array:
+func find_match_at_right(column, row, match_array):
+	var dot : Dot = all_dots[column][row]
+	if column < width - 1:
+		var right_dot = all_dots[column + 1][row]
+		if right_dot != null && dot.compare(right_dot) :
+			match_array.append(Vector2i(column + 1, row))
+			find_match_at_right(column + 1, row, match_array)
+
+func find_match_at_down(column, row, match_array):
+	var dot : Dot = all_dots[column][row]
+	if row < height - 1:
+		var down_dot = all_dots[column][row + 1]
+		if down_dot != null && dot.compare(down_dot) :
+			match_array.append(Vector2i(column, row + 1))
+			find_match_at_down(column, row + 1, match_array)
+
+func process_match_array(match_array):
+	# log match array with comment
+	print("match_array: ", match_array)
+	for match_grid in match_array:
+		var dot = all_dots[match_grid.x][match_grid.y]
+		if dot == null:
+			continue
 		dot.matched = true
 		dot.dim()
-	pass
 
 func destroy_matches():
+	# create match effect from current matches
+	for match_array in current_matches:
+		# loop effectors create effect
+		for effector : Match3Effector in effectors:
+			effector.process(self, match_array)
+		pass
+
+	# destroy all dots in matches
 	for i in width:
 		for j in height:
 			var dot = all_dots[i][j] as Dot
 			if dot != null && dot.matched:
 				dot.queue_free()
 				all_dots[i][j] = null
+	
 	collapse_timer.start()
 
 func collapse_columns():
@@ -273,6 +319,6 @@ func after_refill():
 					has_match = true
 					break
 	if has_match:
-		find_matches()
+		find_all_matches()
 	else:
 		state = State.move

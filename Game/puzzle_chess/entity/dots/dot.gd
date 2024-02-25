@@ -13,9 +13,13 @@ enum DotType {
 # export dot type
 @export var dot_type : DotType = DotType.SQUARE
 
+@export var textures : Array[Texture] = []
+
 @onready var sprite : Sprite2D = $Sprite2D
 
 var matched = false
+
+var grade = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,3 +34,14 @@ func move(target_position):
 
 func dim():
 	sprite.modulate = Color(1, 1, 1, 0.5)
+
+func upgrade():
+	sprite.modulate = Color(1, 1, 1, 1)
+	grade += 1
+	sprite.texture = textures[grade]
+	matched = false
+
+func compare(dot: Dot):
+	if dot_type == dot.dot_type && dot.grade == grade:
+		return true
+	return false
