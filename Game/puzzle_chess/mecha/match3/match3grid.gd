@@ -27,14 +27,14 @@ var refill_timer = Timer.new()
 	$UpgradeMatch
 ]
 
-@export var width = 20
-@export var height = 20
+@export var width = 14
+@export var height = 12
 
 # define start point 
-var start_point = Vector2i(20, 7)
+var start_point = Vector2i(13, 5)
 
 # define block rect
-var block_rect = Rect2(26, 15, 8, 4)
+var block_rect = Rect2(18, 10, 4, 2)
 
 var all_dots = []
 
@@ -52,7 +52,7 @@ func _ready():
 	all_dots = make_2d_array()
 	spawn_dots()
 	find_all_matches()
-	pass # Replace with function body.
+	pass
 
 # setup timer
 func setup_timer():

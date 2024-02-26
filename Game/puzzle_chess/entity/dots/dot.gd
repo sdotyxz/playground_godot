@@ -23,8 +23,8 @@ var grade = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# set scale to 0.125
-	scale = Vector2(0.125, 0.125)
+	# set scale to 0.25
+	scale = Vector2(0.25, 0.25)
 	pass # Replace with function body.
 
 # move dot
