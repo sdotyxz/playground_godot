@@ -24,8 +24,6 @@ func _physics_process(delta):
 	var direction_y = Input.get_axis("ui_up", "ui_down")
 	if direction_x != 0 || direction_y != 0:
 		animation_player.play("move")
-	else:
-		animation_player.play("idle")
 
 	if direction_x != 0:
 		velocity.x = direction_x * SPEED
@@ -38,3 +36,8 @@ func _physics_process(delta):
 		velocity.y = move_toward(velocity.y, 0, SPEED)	
 
 	move_and_slide()
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "move":
+		animation_player.play("idle")
+
