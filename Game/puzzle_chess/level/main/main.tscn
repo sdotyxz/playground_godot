@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://tesdylcoqv7p"]
+[gd_scene load_steps=13 format=3 uid="uid://tesdylcoqv7p"]
 
 [ext_resource type="Texture2D" uid="uid://d054jiud2ru2v" path="res://puzzle_chess/level/main/battle_map.png" id="1_dsiuf"]
 [ext_resource type="Script" path="res://puzzle_chess/mecha/match3/match3grid.gd" id="2_qft4v"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://puzzle_chess/level/main/match3_tile.gd" id="3_brsbg"]
 [ext_resource type="Texture2D" uid="uid://jaif85gxjw73" path="res://puzzle_chess/level/main/slot64.png" id="3_eoc6h"]
 [ext_resource type="Script" path="res://puzzle_chess/mecha/match3/upgrade_match.gd" id="7_hin58"]
+[ext_resource type="PackedScene" uid="uid://cnf1825yddqe" path="res://puzzle_chess/entity/units/unit/unit.tscn" id="9_0cyka"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8hdmr"]
 texture = ExtResource("3_a5lvu")
@@ -62,3 +63,9 @@ script = ExtResource("7_hin58")
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(960, 525)
 zoom = Vector2(1.7, 1.7)
+
+[node name="ChessArea" type="Node2D" parent="."]
+
+[node name="Unit" parent="ChessArea" instance=ExtResource("9_0cyka")]
+scale = Vector2(0.25, 0.25)
+speed = 50.0

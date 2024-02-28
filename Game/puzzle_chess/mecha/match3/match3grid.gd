@@ -46,12 +46,12 @@ var controlling = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	state = State.move
-	setup_timer()
-	randomize()
-	all_dots = make_2d_array()
-	spawn_dots()
-	find_all_matches()
+	# state = State.move
+	# setup_timer()
+	# randomize()
+	# all_dots = make_2d_array()
+	# spawn_dots()
+	# find_all_matches()
 	pass
 
 # setup timer

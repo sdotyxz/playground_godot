@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
+@onready var body_sprite : Sprite2D = $Animation/Body
+@onready var animation : Node2D = $Animation
 
-const SPEED = 300.0
+@export var speed = 300.0
 const JUMP_VELOCITY = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -10,6 +12,9 @@ var gravity = 0 #ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("unit_attack"):
+		animation_player.play("attack")
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -26,18 +31,23 @@ func _physics_process(delta):
 		animation_player.play("move")
 
 	if direction_x != 0:
-		velocity.x = direction_x * SPEED
+		velocity.x = direction_x * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	if direction_y != 0:
-		velocity.y = direction_y * SPEED
+		velocity.y = direction_y * speed
 	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)	
+		velocity.y = move_toward(velocity.y, 0, speed)
+
+	if direction_x < 0:
+		animation.scale = Vector2(-1, 1)
+	elif direction_x > 0:
+		animation.scale = Vector2(1, 1)
 
 	move_and_slide()
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "move":
+	if anim_name == "move" || anim_name == "attack":
 		animation_player.play("idle")
 
