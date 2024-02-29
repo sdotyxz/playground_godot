@@ -1,11 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://cte7uukngowpr"]
+[gd_scene load_steps=9 format=3 uid="uid://cte7uukngowpr"]
 
 [ext_resource type="PackedScene" uid="uid://cnf1825yddqe" path="res://puzzle_chess/entity/units/unit/unit.tscn" id="1_x0ual"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_wwu0n"]
 [ext_resource type="Resource" uid="uid://cxjy1itain1fb" path="res://puzzle_chess/entity/global_blackboard.tres" id="3_hippj"]
+[ext_resource type="Script" path="res://puzzle_chess/entity/units/soldiers/states/soldier_idle.gd" id="4_sihwu"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_transition.gd" id="5_2nc4r"]
+[ext_resource type="Script" path="res://puzzle_chess/entity/units/soldiers/states/soldier_move.gd" id="6_klda1"]
+[ext_resource type="Script" path="res://puzzle_chess/entity/units/soldiers/states/soldier_attack.gd" id="7_hre25"]
+[ext_resource type="Script" path="res://puzzle_chess/entity/units/soldiers/states/soldier_stun.gd" id="8_pwuug"]
 
 [node name="Soldier" instance=ExtResource("1_x0ual")]
 
-[node name="FiniteStateMachine" type="Node" parent="." index="3"]
+[node name="FiniteStateMachine" type="Node" parent="." index="3" node_paths=PackedStringArray("initial_state", "actor")]
 script = ExtResource("2_wwu0n")
+initial_state = NodePath("IDLE")
+actor = NodePath("..")
 blackboard = ExtResource("3_hippj")
+
+[node name="IDLE" type="Node" parent="FiniteStateMachine" index="0"]
+script = ExtResource("4_sihwu")
+
+[node name="OnStartMoving" type="Node" parent="FiniteStateMachine/IDLE" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../MOVE")
+
+[node name="OnStartAttack" type="Node" parent="FiniteStateMachine/IDLE" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../ATTACK")
+
+[node name="MOVE" type="Node" parent="FiniteStateMachine" index="1"]
+script = ExtResource("6_klda1")
+
+[node name="OnStartAttack" type="Node" parent="FiniteStateMachine/MOVE" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../ATTACK")
+
+[node name="OnStopMoving" type="Node" parent="FiniteStateMachine/MOVE" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../IDLE")
+
+[node name="ATTACK" type="Node" parent="FiniteStateMachine" index="2"]
+script = ExtResource("7_hre25")
+
+[node name="OnStopAttack" type="Node" parent="FiniteStateMachine/ATTACK" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../IDLE")
+
+[node name="OnStun" type="Node" parent="FiniteStateMachine/ATTACK" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../STUN")
+
+[node name="STUN" type="Node" parent="FiniteStateMachine" index="3"]
+script = ExtResource("8_pwuug")
+
+[node name="OnRevive" type="Node" parent="FiniteStateMachine/STUN" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_2nc4r")
+next_state = NodePath("../../IDLE")
