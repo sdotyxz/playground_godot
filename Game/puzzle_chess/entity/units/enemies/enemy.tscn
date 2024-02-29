@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbj1rjh1i4aeq"]
+
+[ext_resource type="PackedScene" uid="uid://cnf1825yddqe" path="res://puzzle_chess/entity/units/unit/unit.tscn" id="1_wwsvs"]
+
+[node name="Enemy" instance=ExtResource("1_wwsvs")]

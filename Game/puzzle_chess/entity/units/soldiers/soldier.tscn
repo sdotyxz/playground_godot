@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cte7uukngowpr"]
+
+[ext_resource type="PackedScene" uid="uid://cnf1825yddqe" path="res://puzzle_chess/entity/units/unit/unit.tscn" id="1_x0ual"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_wwu0n"]
+[ext_resource type="Resource" uid="uid://cxjy1itain1fb" path="res://puzzle_chess/entity/global_blackboard.tres" id="3_hippj"]
+
+[node name="Soldier" instance=ExtResource("1_x0ual")]
+
+[node name="FiniteStateMachine" type="Node" parent="." index="3"]
+script = ExtResource("2_wwu0n")
+blackboard = ExtResource("3_hippj")
