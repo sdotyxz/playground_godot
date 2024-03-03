@@ -4,6 +4,11 @@ extends FSMState
 
 # Executes after the state is entered.
 func _on_enter(_actor, _blackboard: Blackboard):
+	# cast _actor to soldier
+	_actor = _actor as Soldier
+
+	# play move animation
+	_actor.animation_player.play("move")
 	pass
 
 

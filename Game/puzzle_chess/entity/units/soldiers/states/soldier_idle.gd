@@ -4,11 +4,23 @@ extends FSMState
 
 # Executes after the state is entered.
 func _on_enter(_actor, _blackboard: Blackboard):
+	# cast actor as solider
+	_actor = _actor as Soldier
+	_actor.animation_player.play("idle")
 	pass
 
 
 # Executes every _process call, if the state is active.
 func _on_update(_delta, _actor, _blackboard: Blackboard):
+	# look around to find the enemy
+	# if found, check if the enemy is in the attack range
+	# if in range, set attact target to the enemy
+	# if not in range, set target position to the enemy position
+	# if not found, pick a wander position and set target position to the wander position
+
+	# cast actor as solider
+	_actor = _actor as Soldier
+	_actor.start_wander()
 	pass
 
 
