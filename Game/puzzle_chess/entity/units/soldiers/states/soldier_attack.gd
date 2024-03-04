@@ -4,6 +4,14 @@ extends FSMState
 
 # Executes after the state is entered.
 func _on_enter(_actor, _blackboard: Blackboard):
+	# play attack animation
+	_actor = _actor as Soldier
+	_actor.animation_player.play("attack")
+
+	# cast attack target to enemey
+	var enemy = _actor.attack_target as Enemy
+	enemy.block_by_solider(_actor)
+
 	pass
 
 

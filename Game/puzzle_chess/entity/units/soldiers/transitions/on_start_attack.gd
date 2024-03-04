@@ -9,6 +9,10 @@ func _on_transition(_delta, _actor, _blackboard: Blackboard):
 
 # Evaluates true, if the transition conditions are met.
 func is_valid(_actor, _blackboard: Blackboard):
+	# cast actor to soldier
+	_actor = _actor as Soldier
+	if _actor.has_attack_target():
+		return true
 	return false
 
 

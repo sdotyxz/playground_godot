@@ -8,6 +8,9 @@ extends Unit
 # define vector2 zero as anchor point
 var anchor_position = Vector2.ZERO
 
+var chase_target : Enemy = null
+var attack_target : Enemy = null
+
 # override ready function, get the position and set it to anchor point
 func _ready():
 	# call the super class ready function
@@ -36,3 +39,47 @@ func _on_wander_timer_timeout():
 	var wander_position = pick_wander_position()
 	set_target_position(wander_position)
 	pass # Replace with function body.
+
+func _on_look_area_body_exited(body:Node2D):
+	# check body is Enemy or not
+	if body is Enemy:
+		# log the enemy is out of sight
+		print("Enemy out of sight")
+		set_chase_target(null)
+
+func _on_look_area_body_entered(body:Node2D):
+	# check body is Enemy or not
+	if body is Enemy:
+		# log the enemy is in sight
+		print("Enemy in sight")
+		set_chase_target(body)
+
+# set chase target
+func set_chase_target(target:Node2D):
+	chase_target = target
+
+# has chase target return true
+func has_chase_target():
+	return chase_target != null
+
+func _on_attack_area_body_exited(body:Node2D):
+	# check body is Enemy or not
+	if body is Enemy:
+		# log the enemy is out of attack range
+		print("Enemy out of attack range")
+		set_attack_target(null)
+
+func _on_attack_area_body_entered(body:Node2D):
+	# check body is Enemy or not
+	if body is Enemy:
+		# log the enemy is in attack range
+		print("Enemy in attack range")
+		set_attack_target(body)
+
+# set attack target
+func set_attack_target(target:Node2D):
+	attack_target = target
+
+# has attack target return true
+func has_attack_target():
+	return attack_target != null

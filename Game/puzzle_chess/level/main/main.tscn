@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://tesdylcoqv7p"]
+[gd_scene load_steps=14 format=3 uid="uid://tesdylcoqv7p"]
 
 [ext_resource type="Texture2D" uid="uid://d054jiud2ru2v" path="res://puzzle_chess/level/main/battle_map.png" id="1_dsiuf"]
 [ext_resource type="Script" path="res://puzzle_chess/mecha/match3/match3grid.gd" id="2_qft4v"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://jaif85gxjw73" path="res://puzzle_chess/level/main/slot64.png" id="3_eoc6h"]
 [ext_resource type="Script" path="res://puzzle_chess/mecha/match3/upgrade_match.gd" id="7_hin58"]
 [ext_resource type="PackedScene" uid="uid://cte7uukngowpr" path="res://puzzle_chess/entity/units/soldiers/soldier.tscn" id="9_6tcnt"]
+[ext_resource type="PackedScene" uid="uid://bbj1rjh1i4aeq" path="res://puzzle_chess/entity/units/enemies/enemy.tscn" id="10_ov25e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8hdmr"]
 texture = ExtResource("3_a5lvu")
@@ -67,6 +68,12 @@ zoom = Vector2(1.7, 1.7)
 [node name="ChessArea" type="Node2D" parent="."]
 
 [node name="Soldier" parent="ChessArea" instance=ExtResource("9_6tcnt")]
+position = Vector2(880, 516)
 scale = Vector2(0.25, 0.25)
 wander_radius = 100.0
+speed = 50.0
+
+[node name="Enemy" parent="ChessArea" instance=ExtResource("10_ov25e")]
+position = Vector2(1081, 680)
+scale = Vector2(0.25, 0.25)
 speed = 30.0

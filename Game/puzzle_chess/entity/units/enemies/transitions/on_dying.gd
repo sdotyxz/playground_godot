@@ -9,13 +9,8 @@ func _on_transition(_delta, _actor, _blackboard: Blackboard):
 
 # Evaluates true, if the transition conditions are met.
 func is_valid(_actor, _blackboard: Blackboard):
-	# cast actor as solider
-	_actor = _actor as Soldier
-	if _actor.is_target_reached() == false:
-		return true
-	elif _actor.has_chase_target():
-		return true
 	return false
+
 
 # Add custom configuration warnings
 # Note: Can be deleted if you don't want to define your own warnings.
