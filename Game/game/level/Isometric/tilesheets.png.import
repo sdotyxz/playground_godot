@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p3yop0upqbat"
-path="res://.godot/imported/floor_E.png-0171c3443b35fc3fe27410ac1b3097e9.ctex"
+uid="uid://cb77jcmbaycps"
+path="res://.godot/imported/tilesheets.png-af4c44b18aa2d15369bd9d991387411a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/level/Isometric/floor_E.png"
-dest_files=["res://.godot/imported/floor_E.png-0171c3443b35fc3fe27410ac1b3097e9.ctex"]
+source_file="res://game/level/Isometric/tilesheets.png"
+dest_files=["res://.godot/imported/tilesheets.png-af4c44b18aa2d15369bd9d991387411a.ctex"]
 
 [params]
 

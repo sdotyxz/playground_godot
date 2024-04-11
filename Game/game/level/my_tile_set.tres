@@ -1,0 +1,16 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://x8i0mv1ivr44"]
+
+[ext_resource type="Texture2D" uid="uid://cb77jcmbaycps" path="res://game/level/Isometric/tilesheets.png" id="1_a8ctq"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv77"]
+texture = ExtResource("1_a8ctq")
+texture_region_size = Vector2i(512, 512)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 100)
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(256, 148)
+sources/0 = SubResource("TileSetAtlasSource_iwv77")

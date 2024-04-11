@@ -1,109 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://r77xib7mmdtu"]
+[gd_scene load_steps=2 format=3 uid="uid://r77xib7mmdtu"]
 
-[ext_resource type="Texture2D" uid="uid://p3yop0upqbat" path="res://game/level/Isometric/floor_E.png" id="1_tscpt"]
-[ext_resource type="Texture2D" uid="uid://cbrlogxr5k8ba" path="res://game/level/Isometric/block_E.png" id="2_borsr"]
-[ext_resource type="Texture2D" uid="uid://bt2v8evrdspiw" path="res://game/level/Isometric/slab_E.png" id="3_ei88c"]
-[ext_resource type="Texture2D" uid="uid://bpdm0u2sjfa0k" path="res://game/level/Isometric/wall_E.png" id="4_36j6c"]
-[ext_resource type="Texture2D" uid="uid://hu27ed0bstd4" path="res://game/level/Isometric/wall_N.png" id="5_k134y"]
-[ext_resource type="Texture2D" uid="uid://bvi5l0b4puwnn" path="res://game/level/Isometric/wall_W.png" id="6_bgalt"]
-[ext_resource type="Texture2D" uid="uid://63pep5gytvoc" path="res://game/level/Isometric/wall_S.png" id="7_qkie8"]
-[ext_resource type="Texture2D" uid="uid://4vryk7c2sbtb" path="res://game/level/Isometric/columnCorner_E.png" id="8_xot1l"]
-[ext_resource type="Texture2D" uid="uid://bftyc4m1bptgy" path="res://game/level/Isometric/columnCorner_N.png" id="9_hy8k5"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4qysk"]
-texture = ExtResource("1_tscpt")
-texture_region_size = Vector2i(256, 128)
-0:3/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e5xay"]
-texture = ExtResource("2_borsr")
-margins = Vector2i(0, 128)
-texture_region_size = Vector2i(256, 96)
-0:1/size_in_atlas = Vector2i(1, 3)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, -78)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yyge7"]
-texture = ExtResource("3_ei88c")
-texture_region_size = Vector2i(256, 128)
-0:2/size_in_atlas = Vector2i(1, 2)
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, 64)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqgvd"]
-texture = ExtResource("4_36j6c")
-texture_region_size = Vector2i(256, 128)
-0:1/size_in_atlas = Vector2i(1, 3)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, 128)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_llgcd"]
-texture = ExtResource("5_k134y")
-texture_region_size = Vector2i(256, 128)
-0:2/size_in_atlas = Vector2i(1, 2)
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, 64)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_74auq"]
-texture = ExtResource("6_bgalt")
-texture_region_size = Vector2i(256, 128)
-0:2/size_in_atlas = Vector2i(1, 2)
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, 64)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qqmy"]
-texture = ExtResource("7_qkie8")
-texture_region_size = Vector2i(256, 128)
-0:1/size_in_atlas = Vector2i(1, 3)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, 128)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_26gl5"]
-texture = ExtResource("8_xot1l")
-texture_region_size = Vector2i(256, 128)
-0:1/size_in_atlas = Vector2i(1, 3)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, 128)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uo8ns"]
-texture = ExtResource("9_hy8k5")
-texture_region_size = Vector2i(256, 128)
-0:2/size_in_atlas = Vector2i(1, 2)
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, 64)
-
-[sub_resource type="TileSet" id="TileSet_yk7cw"]
-tile_shape = 1
-tile_layout = 5
-tile_size = Vector2i(256, 128)
-sources/0 = SubResource("TileSetAtlasSource_4qysk")
-sources/1 = SubResource("TileSetAtlasSource_e5xay")
-sources/2 = SubResource("TileSetAtlasSource_yyge7")
-sources/3 = SubResource("TileSetAtlasSource_yqgvd")
-sources/4 = SubResource("TileSetAtlasSource_llgcd")
-sources/5 = SubResource("TileSetAtlasSource_74auq")
-sources/6 = SubResource("TileSetAtlasSource_0qqmy")
-sources/7 = SubResource("TileSetAtlasSource_26gl5")
-sources/8 = SubResource("TileSetAtlasSource_uo8ns")
+[ext_resource type="TileSet" uid="uid://x8i0mv1ivr44" path="res://game/level/my_tile_set.tres" id="1_1fyg0"]
 
 [node name="main_level" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
-tile_set = SubResource("TileSet_yk7cw")
+tile_set = ExtResource("1_1fyg0")
 format = 2
-layer_0/name = "floor"
 layer_0/y_sort_enabled = true
-layer_0/tile_data = PackedInt32Array(262147, 2, 2, -131076, 2, 2, 327676, 2, 2, -196605, 2, 2, 65537, 0, 3, 1, 0, 3, -65535, 0, 3, -131071, 0, 3, -196607, 0, 3, -196608, 0, 3, -131073, 0, 3, -131074, 0, 3, -131075, 0, 3, -65539, 0, 3, -65540, 0, 3, -4, 0, 3, 65532, 0, 3, 131068, 0, 3, 196604, 0, 3, 262140, 0, 3, 262141, 0, 3, 196605, 0, 3, 131069, 0, 3, 65533, 0, 3, -3, 0, 3, -2, 0, 3, -65538, 0, 3, -65537, 0, 3, -1, 0, 3, 65535, 0, 3, 65534, 0, 3, 131070, 0, 3, 196606, 0, 3, 262142, 0, 3, 327678, 0, 3, 327677, 0, 3, 327679, 0, 3, 262143, 0, 3, 196607, 0, 3, 131071, 0, 3, 65536, 0, 3, 0, 0, 3, -65536, 0, 3, -131072, 0, 3, 131072, 0, 3, 196608, 0, 3, 262144, 0, 3, 262145, 0, 3, 196609, 0, 3, 131073, 0, 3, 131074, 0, 3, 65538, 0, 3, 2, 0, 3, -65534, 0, 3, -131070, 0, 3, -196606, 0, 3, -131069, 0, 3, -65533, 0, 3, 3, 0, 3, 65539, 0, 3, 131075, 0, 3, 196611, 0, 3, 196610, 0, 3, 262146, 0, 3, 327675, 5, 2, 262139, 5, 2, 196603, 5, 2, 131067, 5, 2, 65531, 5, 2, -5, 5, 2, -65541, 5, 2, -131077, 5, 2, -196612, 4, 2, -196611, 4, 2, -196610, 4, 2, -196609, 4, 2, -262144, 4, 2, -262143, 4, 2, -262142, 4, 2, -262141, 4, 2, 524286, 1, 1, 524287, 1, 1, 458752, 1, 1)
-layer_1/name = "wall1"
+layer_0/tile_data = PackedInt32Array(65535, 0, 0, 0, 0, 0, 131071, 0, 0, 196607, 0, 0, 262143, 0, 0, 327679, 0, 0, 393215, 0, 0, 458751, 0, 0, 524287, 0, 0, 589823, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 524293, 0, 0, 458757, 0, 0, 393221, 0, 0, 327685, 0, 0, 262149, 0, 0, 196613, 0, 0, 131077, 0, 0, 65541, 0, 0, 65540, 0, 0, 4, 0, 0, 5, 0, 0, 3, 0, 0, 2, 0, 0, -65534, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 262147, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 393220, 0, 0, 393219, 0, 0, 458756, 0, 0, 458755, 0, 0, 524291, 0, 0, 524290, 0, 0, 524289, 0, 0, 458753, 0, 0, 458752, 0, 0, 524288, 0, 0, 458754, 0, 0, 524292, 0, 0, 393216, 0, 0, 327680, 0, 0, 262144, 0, 0, 196608, 0, 0, 131072, 0, 0, 131073, 0, 0, 196609, 0, 0, 262145, 0, 0, 327681, 0, 0, 393217, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0, 327683, 0, 0, 6, 0, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 393222, 0, 0, 458758, 0, 0, 524294, 0, 0, 589830, 0, 0, 262150, 0, 0, 327686, 0, 0, 458759, 0, 0, 393223, 0, 0, 327687, 0, 0, 262151, 0, 0, 393224, 0, 0, 327688, 0, 0, 262152, 0, 0, 196616, 0, 0, 65544, 0, 0)
 layer_1/y_sort_enabled = true
 layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array(-131078, 5, 2, -196614, 5, 2, -262149, 4, 2, -262146, 4, 2, -327679, 4, 2, -327678, 4, 2, -262148, 4, 2, -262145, 4, 2, 65530, 5, 2, -6, 5, 2)
-layer_2/name = "wall2"
+layer_1/tile_data = PackedInt32Array(-2, 0, 0, -1, 0, 0, 131070, 0, 0, 262142, 0, 0, 393214, 0, 0, 65534, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 458755, 0, 0, 458756, 0, 0, 393220, 0, 0, 327684, 0, 0, 262148, 0, 0, 196612, 0, 0, 131076, 0, 0, 65540, 0, 0, 196610, 0, 0, 131074, 0, 0, 131073, 0, 0, 262144, 0, 0, 2, 0, 0)
 layer_2/y_sort_enabled = true
 layer_2/z_index = 2
-layer_2/tile_data = PackedInt32Array(196601, 5, 2, 131065, 5, 2, 65529, 5, 2, -7, 5, 2, -65543, 5, 2, -131079, 5, 2, -327686, 4, 2, -327685, 4, 2, -327684, 4, 2, -327683, 4, 2, -327682, 4, 2, -327681, 4, 2, -393216, 4, 2, -393215, 4, 2, -327687, 8, 2, -196615, 5, 2, -262151, 5, 2)
-layer_3/name = "wall3"
-layer_3/y_sort_enabled = true
-layer_3/z_index = 3
-layer_3/tile_data = PackedInt32Array()
+layer_2/tile_data = PackedInt32Array(327677, 0, 0, 262141, 0, 0, 196605, 0, 0, 131069, 0, 0, 65533, 0, 0, -3, 0, 0, -65539, 0, 0, -65538, 0, 0, 65536, 0, 0, 65537, 0, 0, 131073, 0, 0, -65535, 0, 0, 3, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 393216, 0, 0, 262143, 0, 0)
