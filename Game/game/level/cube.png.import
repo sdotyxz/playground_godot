@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb77jcmbaycps"
-path="res://.godot/imported/tilesheets.png-af4c44b18aa2d15369bd9d991387411a.ctex"
+uid="uid://buxhwexgxd6k0"
+path="res://.godot/imported/cube.png-5beedc060431c8f226e67c1f16b4d80d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/level/Isometric/tilesheets.png"
-dest_files=["res://.godot/imported/tilesheets.png-af4c44b18aa2d15369bd9d991387411a.ctex"]
+source_file="res://game/level/cube.png"
+dest_files=["res://.godot/imported/cube.png-5beedc060431c8f226e67c1f16b4d80d.ctex"]
 
 [params]
 
