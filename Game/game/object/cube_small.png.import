@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cser54x5rqgqq"
-path="res://.godot/imported/Tile_Type_C-128x64.png-b7ab41c9148946faec77f71dc41d9959.ctex"
+uid="uid://dryhj6o01kfes"
+path="res://.godot/imported/cube_small.png-20de44d1cc774f11b6f61e83c5fa7ea7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/level/Tile_Type_C-128x64.png"
-dest_files=["res://.godot/imported/Tile_Type_C-128x64.png-b7ab41c9148946faec77f71dc41d9959.ctex"]
+source_file="res://game/object/cube_small.png"
+dest_files=["res://.godot/imported/cube_small.png-20de44d1cc774f11b6f61e83c5fa7ea7.ctex"]
 
 [params]
 

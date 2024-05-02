@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdfcojq325j2s"]
+
+[ext_resource type="Script" path="res://game/object/level_object.gd" id="1_02h6m"]
+[ext_resource type="Texture2D" uid="uid://buxhwexgxd6k0" path="res://game/level/cube.png" id="1_ejgw7"]
+[ext_resource type="Texture2D" uid="uid://pxpqma2xpka3" path="res://game/object/shadow.png" id="3_vpuoc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70sp5"]
+size = Vector2(76, 78)
+
+[node name="LevelObject" type="Area2D"]
+script = ExtResource("1_02h6m")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0.552941, 0.937255, 0.462745, 0.615686)
+texture = ExtResource("3_vpuoc")
+
+[node name="Body" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ejgw7")
+offset = Vector2(0, -40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_70sp5")
