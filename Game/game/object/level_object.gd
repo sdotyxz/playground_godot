@@ -9,6 +9,7 @@ var grabbed_offset := Vector2.ZERO
 var mb_pressed = false
 
 var tilemap : TileMap
+var object_map_position : Vector2
 
 @onready var body := get_node("Body") as Sprite2D
 @onready var shaodw := get_node("Shadow") as Sprite2D
@@ -62,6 +63,7 @@ func on_released() -> void:
 	body.modulate = Color(1, 1, 1, 1)
 	body.offset.y = -40
 	tilemap.visible = false
+	object_map_position = tilemap.local_to_map(position)
 
 # func set tilemap
 func set_tilemap(_tilemap: TileMap, _point: Vector2) -> void:
@@ -72,4 +74,9 @@ func set_tilemap(_tilemap: TileMap, _point: Vector2) -> void:
 
 	# set level object position to tilemap (0, 0) local position
 	position = tilemap_position
-	
+
+	object_map_position = tilemap_position
+
+# func get object map position
+func get_object_map_position() -> Vector2:
+	return object_map_position
