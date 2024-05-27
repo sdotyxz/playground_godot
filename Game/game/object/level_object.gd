@@ -8,6 +8,8 @@ var grabbed_offset := Vector2.ZERO
 # Mouse button pressed tracker, used to essentially replicate the behavior of 'is_action_just_released'
 var mb_pressed = false
 
+var tilemap : TileMap
+
 @onready var body := get_node("Body") as Sprite2D
 @onready var shaodw := get_node("Shadow") as Sprite2D
 
@@ -37,7 +39,6 @@ func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) ->
 
 # adjust the position with tilemap
 func adjust_position(_position: Vector2) -> Vector2:
-	var tilemap = get_node("../TileMap") as TileMap
 	var tile_size = tilemap.tile_set.tile_size
 	# convert tile_size to Vector2
 	tile_size = Vector2(tile_size.x, tile_size.y)
@@ -54,12 +55,21 @@ func on_grabbed() -> void:
 	shaodw.visible = true
 	body.modulate = Color(1, 1, 1, 0.75)
 	body.offset.y = -60
-	var tilemap = get_node("../TileMap") as TileMap
 	tilemap.visible = true
 
 func on_released() -> void:
 	shaodw.visible = false
 	body.modulate = Color(1, 1, 1, 1)
 	body.offset.y = -40
-	var tilemap = get_node("../TileMap") as TileMap
 	tilemap.visible = false
+
+# func set tilemap
+func set_tilemap(_tilemap: TileMap, _point: Vector2) -> void:
+	tilemap = _tilemap
+
+	# get tilemap (0, 0) local position
+	var tilemap_position = tilemap.map_to_local(_point)
+
+	# set level object position to tilemap (0, 0) local position
+	position = tilemap_position
+	
