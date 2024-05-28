@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 # export level object
 @export var level_object : PackedScene
@@ -6,6 +6,7 @@ extends Node2D
 @onready var main_level : MainLevel = $main_level
 @onready var objects : Node2D = $objects
 @onready var task_timer : Timer = $task_timer
+@onready var story_panel : StoryPanel = $main_ui/story_panel
 
 # task array
 var tasks = []
@@ -40,6 +41,9 @@ func CheckTaskCompleted():
 
 # function Start Playing the Game
 func StartGame():
+	# show story panel
+	story_panel.play_slide_in_animation()
+
 	# spawn draggable object
 	var new_level_object = level_object.instantiate() as LevelObject
 	objects.add_child(new_level_object)

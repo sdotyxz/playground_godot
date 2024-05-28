@@ -1,10 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5qvko8y46b1a"]
+[gd_scene load_steps=10 format=3 uid="uid://b5qvko8y46b1a"]
 
 [ext_resource type="Script" path="res://game/gameplay/main_gameplay.gd" id="1_85eet"]
 [ext_resource type="PackedScene" uid="uid://r77xib7mmdtu" path="res://game/level/main_level.tscn" id="1_r34pd"]
 [ext_resource type="PackedScene" uid="uid://bdfcojq325j2s" path="res://game/object/LevelObject.tscn" id="2_ao5ip"]
+[ext_resource type="Texture2D" uid="uid://buxhwexgxd6k0" path="res://game/level/cube.png" id="4_4u08v"]
+[ext_resource type="Script" path="res://game/ui/story_panel.gd" id="4_tu04p"]
 
-[node name="gameplay" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_0oqnx"]
+font_size = 32
+
+[sub_resource type="Animation" id="Animation_hb7y3"]
+resource_name = "slide_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-600, 933), Vector2(-600, -491), Vector2(-600, -377)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_kjuuk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-600, 933)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ek5l5"]
+_data = {
+"RESET": SubResource("Animation_kjuuk"),
+"slide_in": SubResource("Animation_hb7y3")
+}
+
+[node name="gameplay" type="Node"]
 script = ExtResource("1_85eet")
 level_object = ExtResource("2_ao5ip")
 
@@ -20,5 +86,84 @@ zoom = Vector2(0.425, 0.425)
 [node name="task_timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="main_ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="story_panel" type="Panel" parent="main_ui"]
+visible = false
+custom_minimum_size = Vector2(1200, 750)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = 933.0
+offset_right = 600.0
+offset_bottom = 1683.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_tu04p")
+
+[node name="Label" type="Label" parent="main_ui/story_panel"]
+layout_mode = 1
+offset_left = 38.0
+offset_top = 21.0
+offset_right = 112.0
+offset_bottom = 66.0
+text = "Dear"
+label_settings = SubResource("LabelSettings_0oqnx")
+
+[node name="Label2" type="Label" parent="main_ui/story_panel"]
+offset_left = 43.0
+offset_top = 87.0
+offset_right = 1166.0
+offset_bottom = 180.0
+text = "Balabalabalabala balabalabala balabalabala, balabalabala balabalabala, 
+balabalabala"
+label_settings = SubResource("LabelSettings_0oqnx")
+
+[node name="TextureRect" type="TextureRect" parent="main_ui/story_panel"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 187.0
+offset_right = 301.0
+offset_bottom = 443.0
+texture = ExtResource("4_4u08v")
+
+[node name="TextureRect2" type="TextureRect" parent="main_ui/story_panel"]
+layout_mode = 0
+offset_left = 305.0
+offset_top = 186.0
+offset_right = 561.0
+offset_bottom = 442.0
+texture = ExtResource("4_4u08v")
+
+[node name="Button" type="Button" parent="main_ui/story_panel"]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 571.0
+offset_right = 720.0
+offset_bottom = 670.0
+theme_override_font_sizes/font_size = 50
+text = "OK"
+
+[node name="story_panel_animation" type="AnimationPlayer" parent="main_ui/story_panel"]
+libraries = {
+"": SubResource("AnimationLibrary_ek5l5")
+}
 
 [connection signal="timeout" from="task_timer" to="." method="_on_task_timer_timeout"]
