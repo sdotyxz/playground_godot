@@ -42,7 +42,7 @@ func CheckTaskCompleted():
 # function Start Playing the Game
 func StartGame():
 	# show story panel
-	story_panel.play_slide_in_animation()
+	# story_panel.play_slide_in_animation()
 
 	# spawn draggable object
 	var new_level_object = level_object.instantiate() as LevelObject
